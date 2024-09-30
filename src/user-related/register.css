@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    @apply m-0 p-0;
+}
+.test header p{
+    @apply text-4xl font-black;
+}
+.wrap{
+    @apply max-w-full  max-h-full flex flex-col bg-gradient-to-r from-green-400 to-green-700 ;
+}
+.input-wrap{
+    @apply flex flex-col max-w-full rounded-t-3xl bg-white;
+}
+input{
+    @apply border-2 bg-gray-200 rounded-md p-2;
+}
+.input-holder{
+    @apply m-5 mb-0 flex flex-col;
+}
+.sign-h1{
+    @apply text-3xl text-white font-bold;
+}
+.h1-holder{
+    @apply p-8;
+}
+.h2-holder{
+    @apply font-bold text-2xl m-5;
+}
+p{
+    @apply text-lg font-normal;
+}
+button{
+    @apply p-3 rounded-md bg-green-500 text-white font-bold ;
+}
+a{
+    @apply underline text-blue-600;
+}
+.sign-in{
+    @apply mt-12;
+}
