@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.wrap-div{
+    @apply absolute w-full bottom-56
+}
+
+.container{
+    @apply  m-auto h-14 w-4/5 bg-red-400 rounded;
+}
+.error-msg{
+    @apply border-r border-red-600 opacity-100 col-span-4 flex
+}
+.msg{
+    @apply m-auto
+}
+.exit{
+    @apply col-span-1 flex hover:bg-red-700 rounded-r
+}
+.exit-button{
+    @apply m-auto
+}
+.msg-container{
+    @apply w-full h-full grid grid-cols-5;
+}

@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.prop-wrap{
+    @apply border-black min-h-20 m-3 rounded-md shadow-inner shadow-lg
+}
+.info-container{
+    @apply transition-all duration-500 grid grid-cols-4 rounded-md h-full h-20 bg-gradient-to-r from-green-400 to-green-300
+}
+.info-drop{
+    @apply transition-all duration-500 grid grid-cols-4 rounded-t-md h-full h-20 bg-gradient-to-r from-green-400 to-green-300
+}
+.prop-address{
+    @apply col-span-3 m-auto ml-5 text-2xl text-white font-mono font-bold tracking-widest
+}
+.drop-button{
+    @apply m-auto
+}
+.image-drop{
+    @apply rotate-[270deg] w-14 h-14 transition-all select-none
+}
+.image-drop-pressed{
+    @apply rotate-[180deg] w-14 h-14 transition-all
+}
+.dropdown-hidden {
+    @apply opacity-0 h-0 p-0 transition-all duration-500 overflow-hidden;
+}
+
+.dropdown-content {
+    @apply opacity-100 h-60 p-3 font-serif transition-all duration-500 overflow-hidden;
+}
+.prop-info{
+    @apply m-2 text-lg transition-all
+}
+.prop-info-hidden{
+    @apply m-0 transition-all hidden
+}
+.city-postal{
+    @apply grid grid-cols-7;
+}
+.city{
+    @apply col-start-1 col-end-4
+}
+.postal{
+    @apply col-start-4  col-end-8
+}
+.state{
+    @apply border-b pb-3 grid grid-cols-7
+}
+.prop-description{
+    @apply mt-3
+}
+.info-title{
+    @apply font-bold
+}
+.stateWrap{
+    @apply col-start-1 col-end-5
+}
+.info-text{
+    @apply text-gray-500
+}
+.utilityImg{
+    @apply w-12 m-auto cursor-pointer hover:drop-shadow-xl transition-all duration-500
+}
+.imgWrap{
+    @apply gap-3 m-auto flex col-start-5 col-end-8
+}
+.buttonAdd{
+    @apply border bg-green-400 m-3 p-3 text-white font-bold
+}

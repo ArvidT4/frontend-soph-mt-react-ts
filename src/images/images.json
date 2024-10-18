@@ -1,0 +1,24 @@
+{
+  "icons": [
+    {
+      "name": "triangle",
+      "icon": "drop-triangle.png"
+    },
+    {
+      "name": "house",
+      "icon": "house.png"
+    },
+    {
+      "name": "home",
+      "icon": "home.png"
+    },
+    {
+      "name": "homesvg",
+      "icon": "home.svg"
+    },
+    {
+      "name": "edit",
+      "icon": "edit.svg.png"
+    }
+  ]
+}
