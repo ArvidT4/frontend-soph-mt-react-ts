@@ -1,36 +1,31 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useMyPropertiesContext } from '../Contexts/PropertyContext';
+import propPage from "../css-modules/PropertyPage.module.css"
 import {IProperty, IToken} from "../interfaces"
 import Property from "./Property"
 import H1Banner from '../Components/H1Banner';
 import { useMyContext } from '../Contexts/TokenContext';
 import { useNavigate } from 'react-router-dom';
-import { getLocal } from '../Contexts/LocalStorage.';
 
-const PropertyPage=()=> {
+const PropertyPage=()=>{
     const navigate = useNavigate();
+    const {properties,getProperties}=useMyPropertiesContext();
+    const {token}=useMyContext();
     useEffect(() => {
-        const token:IToken=getToken();
+        //const token:IToken=getToken();
         
         if(token){
-            const props:IProperty[]=getLocal("properties");
-            if(props){
-                setPropertiesFromLocal(props);
-            }else{
-                getProperties(token.token);
-                console.log(token)
-            }
-            console.log(props)
+            getProperties(token.token);
+            console.log(token)
+
         }
     }, []);
-    const {properties,addBoiler,getProperties}=useMyPropertiesContext();
-    const {token,getToken}=useMyContext();
 
     return (
         <div>
             <H1Banner header={"Properties"}></H1Banner>
             <div>
-                <button className={"buttonAdd"} onClick={()=>navigate("/addProperty")}>Add property</button>
+                <button className={propPage.buttonAdd} onClick={()=>navigate("/addProperty")}>Add property</button>
             </div>
             {properties && properties.length>0 ? (properties.map((object:IProperty,key)=>{
                 return <Property key={key} property={object}></Property>
@@ -42,10 +37,4 @@ const PropertyPage=()=> {
 
 export default PropertyPage;
 
-function setPropertiesFromLocal(props: IProperty[]) {
-    throw new Error('Function not implemented.');
-}
-function getToken(): IToken {
-    throw new Error('Function not implemented.');
-}
 

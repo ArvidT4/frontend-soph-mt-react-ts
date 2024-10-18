@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.buttonAdd{
+    @apply border bg-green-400 m-3 p-3 text-white font-bold
+}

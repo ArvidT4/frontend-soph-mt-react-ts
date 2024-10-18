@@ -1,31 +1,41 @@
-import React, {ReactNode, createContext, useContext, useState } from "react"
+import React, {ReactNode, createContext, useContext, useState, useEffect} from "react"
 import { IToken } from "../interfaces";
-import {getLocal, setLocal } from "./LocalStorage.";
+import {getLocalStorage,setLocalStorage,removeLocalStorage} from "./LocalStorage.";
 
 interface TokenContext{
-    token?:IToken
+    token?:IToken|null
     addToken:(token:IToken) => void
-    getToken:()=>void
 }
 
 const MyContext = createContext<TokenContext|undefined>(undefined)
 
+
 const MyTokenProvider: React.FC<{children:ReactNode}> = ({children})=>{
-    const [token,setToken] = useState<IToken>();
+
+
+    const [token,setToken] = useState<IToken|null>();
+
+    useEffect(()=>{
+        const storedToken=getLocalStorage<IToken>("token");
+        if(storedToken){
+            setToken(storedToken);
+        }
+    },[])
+
+    useEffect(() => {
+        if(token){
+            setLocalStorage('token',token)
+        }
+        else{
+            removeLocalStorage('token')
+        }
+    }, [token]);
     const addToken=(token:IToken)=>{
         setToken(token);
-        setLocal("token",token);
         console.log(token);
     }
-    const getToken=():IToken|undefined=>{
-
-        const tokenStorage:IToken=getLocal("token");
-        if(!tokenStorage) return undefined;
-        setToken((tokenStorage));
-        return tokenStorage;
-    }
     return (
-        <MyContext.Provider value={{token,addToken,getToken}}>
+        <MyContext.Provider value={{token,addToken}}>
             {children}
         </MyContext.Provider>
     )

@@ -1,11 +1,11 @@
-import {ReactNode, createContext, useContext, useState } from "react";
-import { IProperty } from "../interfaces";
+import {ReactNode, createContext, useContext, useState, useEffect} from "react";
+import {IProperty, IToken} from "../interfaces";
 import axios, { AxiosResponse } from "axios";
-import { setLocal } from "./LocalStorage.";
+import {getLocalStorage, removeLocalStorage, setLocalStorage} from "./LocalStorage.";
+import {useMyContext} from "./TokenContext";
 
 interface PropertyContext{
-    properties:IProperty[]
-    addBoiler:()=>void;
+    properties:IProperty[]|undefined;
     removeProperty:(token:string,address:string)=>void;
     getProperties:(token:string)=>void;
     createProperty:(token:string,property:IProperty)=>void;
@@ -14,34 +14,48 @@ interface PropertyContext{
 const MyContext = createContext<PropertyContext|undefined>(undefined)
 
 const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
-    const [properties,setProperties] = useState<IProperty[]>([]);
-    const addBoiler=()=>{
-        const boiler:IProperty= {
-            Id: "fdsaf23",
-            address: "BOkgatan 234",
-            description: "Här bor jag och min familj",
-            city: "Halmen",
-            postCode: 30054,
-            state: "Halland",
-            collectingId: ""
-        }
-        setProperties((prevState)=>[...prevState,boiler]);
-        setProperties((prevState)=>[...prevState,boiler]);
-        setProperties((prevState)=>[...prevState,boiler]);
+    const [properties,setProperties] = useState<IProperty[]|undefined>();
 
-    }
+
+    useEffect(()=>{
+        const storedProperties=getLocalStorage<IProperty[]>("properties");
+        if(storedProperties){
+            setProperties(storedProperties);
+        }
+    },[])
+
+    useEffect(() => {
+        if(properties){
+            setLocalStorage('properties',properties)
+        }
+        else{
+            removeLocalStorage('properties')
+        }
+    }, [properties]);
+
     const setPropertiesFromLocal=(props:IProperty[])=>{
         setProperties(props)
     }
     const getProperties= async(token:string)=>{
-        let response:AxiosResponse= await axios.get("http://localhost:9898/getAllProperties",{
-            params:{
-                token:token,
+
+        try{
+            console.log("tefds" + token)
+            if(!properties){
+                console.log("tefds")
+                let response:AxiosResponse= await axios.get("http://localhost:9898/getAllProperties",{
+                    params:{
+                        token:token,
+                    }
+                })
+                setProperties(response.data);
+                console.log(response.data)
             }
-        })
-        setProperties(response.data);
-        setLocal("properties",response.data);
-        console.log(response.data)
+
+        }
+        catch(error){
+            console.log(error)
+        }
+
     }
     const createProperty= async (token:string,property:IProperty)=>{
         const response:AxiosResponse= await axios.post("http://localhost:9898/createProperty",
@@ -60,7 +74,6 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
             },
         )
         setProperties(response.data)
-        setLocal("properties",response.data);
         console.log(response, property)
     }
     const removeProperty=(token:string,address:string)=>{
@@ -73,7 +86,7 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
         console.log(repsonse)
     }
     return (
-        <MyContext.Provider value={{properties,addBoiler,removeProperty,getProperties,createProperty,setPropertiesFromLocal}}>
+        <MyContext.Provider value={{properties,removeProperty,getProperties,createProperty,setPropertiesFromLocal}}>
             {children}
         </MyContext.Provider>
     )

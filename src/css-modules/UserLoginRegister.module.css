@@ -8,22 +8,22 @@
 .wrap{
     @apply relative max-w-full flex flex-col bg-gradient-to-r from-green-400 to-green-700 ;
 }
-.input-wrap{
+.inputWrap{
     @apply flex flex-col max-w-full rounded-t-3xl bg-white;
 }
 .input{
     @apply border-2 bg-gray-200 rounded-md p-3;
 }
-.input-holder{
+.inputHolder{
     @apply m-5 mb-0 flex flex-col;
 }
-.sign-h1{
+.signH1{
     @apply text-3xl text-white font-bold;
 }
-.h1-holder{
+.h1Holder{
     @apply p-8;
 }
-.h2-holder{
+.h2Holder{
     @apply font-bold text-2xl m-5;
 }
 p{
@@ -35,9 +35,9 @@ p{
 .redirect{
     @apply underline text-blue-600;
 }
-.sign-in{
+.signIn{
     @apply mt-12;
 }
-.input-error{
+.inputError{
     @apply border-red-200 bg-red-200
 }

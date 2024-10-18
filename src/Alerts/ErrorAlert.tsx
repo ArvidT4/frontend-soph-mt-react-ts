@@ -1,5 +1,5 @@
 import react from "react";
-import "./Container.css"
+import styles from "../css-modules/Container.module.css"
 import { useMyAlertContext } from "../Contexts/AlertContext";
 
 interface IAlerts {
@@ -13,15 +13,15 @@ const ErrorAlert = (Alerts: IAlerts) => {
 
         updateAlert(false);
     }
-    const errorMsg:react.ReactElement = <div className={"error-msg"}><span className={"msg"}>{Alerts.errorMsg}</span></div>
-    const exit: react.ReactElement = <div className={"exit"} onClick={exitButton}><span className={"exit-button"}>X</span></div>
+    const errorMsg:react.ReactElement = <div className={styles.errorMsg}><span className={styles.msg}>{Alerts.errorMsg}</span></div>
+    const exit: react.ReactElement = <div className={styles.exit} onClick={exitButton}><span className={styles.exitButton}>X</span></div>
     const container: react.ReactElement =
-        <div className={"container-wrap"}>
-            <div className={"container"}>
-                <div className={"msg-container"}>{errorMsg}{exit}</div>
+        <div>
+            <div className={styles.container}>
+                <div className={styles.msgContainer}>{errorMsg}{exit}</div>
             </div>
         </div>
-    const wrap:react.ReactElement = <div className={"wrap-div"}>{container}</div>
+    const wrap:react.ReactElement = <div className={styles.wrapDiv}>{container}</div>
 
 
     return wrap

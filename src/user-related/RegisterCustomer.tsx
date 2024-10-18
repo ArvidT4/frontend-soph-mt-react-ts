@@ -1,5 +1,5 @@
 import React, {useState, MouseEvent, SyntheticEvent} from 'react';
-import './register.css';
+import styles from "../css-modules/UserLoginRegister.module.css"
 import * as events from "events";
 import {IToken, IUser } from '../interfaces';
 import axios, { AxiosResponse } from 'axios';
@@ -32,7 +32,7 @@ function App() {
 
             const resData= response.data;
             if(!resData){
-                setInputError("input-error")
+                setInputError(styles.inputError)
                 updateAlert(true)
             }
             else{
@@ -41,6 +41,8 @@ function App() {
 
         }
         catch(error){
+            setInputError(styles.inputError)
+            updateAlert(true)
             console.log(error);
         }
 
@@ -49,31 +51,31 @@ function App() {
 
     return (
         <div>
-            <div className={"wrap"}>
-                <div className={"h1-holder"}>
-                    <h1 className={"sign-h1"}>Sign up</h1>
+            <div className={styles.wrap}>
+                <div className={styles.h1Holder}>
+                    <h1 className={styles.signH1}>Sign up</h1>
                 </div>
-                <div className={"input-wrap"}>
-                    <div className={"h2-holder"}>
+                <div className={styles.inputWrap}>
+                    <div className={styles.h2Holder}>
                         <h2>Welcome customer!</h2>
                         <p>To access to the service, sign up!</p>
                     </div>
-                    <div className={"input-holder"}>
+                    <div className={styles.inputHolder}>
                         <label>Email</label>
-                        <input className={`input ${inputError}`} type={"email"} name={"email"}
+                        <input className={styles.input + " " + inputError} type={"email"} name={"email"}
                                onChange={(e) => handleChange(e)} placeholder={"email@sophämt.se"}/>
                     </div>
-                    <div className={"input-holder"}>
+                    <div className={styles.inputHolder}>
                         <label>Password</label>
-                        <input className={`input ${inputError}`} type={"password"} name={"password"}
+                        <input className={styles.input + " " + inputError} type={"password"} name={"password"}
                                onChange={(e) => handleChange(e)} placeholder={"**********"}/>
                     </div>
-                    <div className={"input-holder sign-in"}>
-                        <label>Already got an account? <a className={"redirect"} href={"/login"}>Sign in
+                    <div className={styles.inputHolder + " " + styles.signIn}>
+                        <label>Already got an account? <a className={styles.redirect} href={"/login"}>Sign in
                             here!</a></label>
                     </div>
-                    <div className={"input-holder"}>
-                        <button onClick={register} className={"button"}>Sign up</button>
+                    <div className={styles.inputHolder}>
+                        <button onClick={register} className={styles.button}>Sign up</button>
                     </div>
                 </div>
             </div>
