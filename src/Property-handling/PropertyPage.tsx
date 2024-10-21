@@ -6,10 +6,13 @@ import Property from "./Property"
 import H1Banner from '../Components/H1Banner';
 import { useMyContext } from '../Contexts/TokenContext';
 import { useNavigate } from 'react-router-dom';
+import {useMyAlertContext} from "../Contexts/AlertContext";
+import Alert from "../Alerts/Alert";
 
 const PropertyPage=()=>{
     const navigate = useNavigate();
     const {properties,getProperties}=useMyPropertiesContext();
+    const {alert} = useMyAlertContext();
     const {token}=useMyContext();
     useEffect(() => {
         //const token:IToken=getToken();
@@ -30,7 +33,7 @@ const PropertyPage=()=>{
             {properties && properties.length>0 ? (properties.map((object:IProperty,key)=>{
                 return <Property key={key} property={object}></Property>
             })) : (<div>loading</div>)}
-
+            {alert&&<Alert error={false} alertMsg={"Successful"}></Alert>}
         </div>
     );
 }

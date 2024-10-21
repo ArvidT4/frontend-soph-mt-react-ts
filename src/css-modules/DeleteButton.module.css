@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.utilityImg{
+    @apply w-12 m-auto cursor-pointer hover:drop-shadow-xl transition-all duration-300 hover:opacity-50
+}

@@ -5,10 +5,12 @@ import { IProperty } from "../interfaces";
 import { useMyPropertiesContext } from "../Contexts/PropertyContext";
 import { useMyContext } from "../Contexts/TokenContext";
 import { useNavigate } from "react-router-dom";
+import {useMyAlertContext} from "../Contexts/AlertContext";
 
 const AddProperty = () => {
     const {createProperty} = useMyPropertiesContext();
     const {token} = useMyContext();
+    const {alert,updateAlert} = useMyAlertContext();
     const navigate = useNavigate();
     const [address, setAddress] = useState<string>("");
     const [description, setDescription] = useState<string>("");
@@ -27,21 +29,27 @@ const AddProperty = () => {
         }
     };
     const addProperty=()=>{
-        const property:IProperty= {
-            address: address,
-            description: description,
-            city: city,
-            postCode: postCode,
-            state: state,
-            Id: "",
-            collectingId: ""
+        try{
+            const property:IProperty= {
+                address: address,
+                description: description,
+                city: city,
+                postCode: postCode,
+                state: state,
+                Id: "",
+                collectingId: ""
+            }
+            if(token){
+                createProperty(token.token,property);
+                updateAlert(true)
+                navigate("/properties")
+            }
+            console.log(property,token)
         }
-        if(token){
-            createProperty(token.token,property);
-            navigate("/properties")
+        catch(error){
+            console.log(error)
+        }
 
-        }
-        console.log(property,token)
     }
 
     return (

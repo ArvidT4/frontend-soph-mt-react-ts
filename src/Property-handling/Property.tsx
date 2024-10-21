@@ -4,6 +4,7 @@ import myImage from "../images/images.json"
 import edit from "../images/edit.svg.png"
 import deleteImg from "../images/trashCan.png"
 import { useState } from "react";
+import DeleteButton from "../Components/DeleteButton";
 
 interface props{
     key:number
@@ -52,7 +53,7 @@ const Property =({property}:props)=>{
                     </div>
                     <div className={styles.imgWrap}>
                         <div><img className={styles.utilityImg} src={edit}/></div>
-                        <div><img className={styles.utilityImg} src={deleteImg}/></div>
+                        <DeleteButton address={property.address}></DeleteButton>
                     </div>
                 </div>
 

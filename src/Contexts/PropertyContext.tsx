@@ -76,14 +76,17 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
         setProperties(response.data)
         console.log(response, property)
     }
-    const removeProperty=(token:string,address:string)=>{
-        const repsonse:Promise<AxiosResponse> = axios.delete("http://localhost:9898/deleteProperty",{
+    const removeProperty=async (token:string,address:string)=>{
+        const response:AxiosResponse = await axios.delete("http://localhost:9898/deleteProperty",{
             params:{
                 token:token,
                 address:address,
             }
         })
-        console.log(repsonse)
+        if(response.status===200){
+            setProperties(response.data)
+        }
+        console.log(response)
     }
     return (
         <MyContext.Provider value={{properties,removeProperty,getProperties,createProperty,setPropertiesFromLocal}}>

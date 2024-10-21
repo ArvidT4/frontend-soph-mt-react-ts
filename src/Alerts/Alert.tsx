@@ -3,22 +3,23 @@ import styles from "../css-modules/Container.module.css"
 import { useMyAlertContext } from "../Contexts/AlertContext";
 
 interface IAlerts {
-    errorMsg: string;
+    alertMsg: string;
+    error:boolean
 }
 
 
-const ErrorAlert = (Alerts: IAlerts) => {
-    const {updateAlert} = useMyAlertContext();
+const Alert = ({alertMsg,error}: IAlerts) => {
+    const {alert, updateAlert} = useMyAlertContext();
     const exitButton =():void=>{
 
         updateAlert(false);
     }
-    const errorMsg:react.ReactElement = <div className={styles.errorMsg}><span className={styles.msg}>{Alerts.errorMsg}</span></div>
+    const msg:react.ReactElement = <div className={error?styles.errorMsg:styles.successMsg}><span className={styles.msg}>{alertMsg}</span></div>
     const exit: react.ReactElement = <div className={styles.exit} onClick={exitButton}><span className={styles.exitButton}>X</span></div>
     const container: react.ReactElement =
         <div>
-            <div className={styles.container}>
-                <div className={styles.msgContainer}>{errorMsg}{exit}</div>
+            <div className={error?styles.errorContainer:styles.successContainer + " " + alert?styles.easeIn:styles.easeOut}>
+                <div className={styles.msgContainer}>{msg}{exit}</div>
             </div>
         </div>
     const wrap:react.ReactElement = <div className={styles.wrapDiv}>{container}</div>
@@ -26,4 +27,4 @@ const ErrorAlert = (Alerts: IAlerts) => {
 
     return wrap
 }
-export default ErrorAlert;
+export default Alert;

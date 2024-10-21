@@ -5,7 +5,7 @@ import * as events from "events";
 import {IToken, IUser } from '../interfaces';
 import { useMyContext } from '../Contexts/TokenContext';
 import { useMyAlertContext } from '../Contexts/AlertContext';
-import ErrorAlert from '../Alerts/ErrorAlert';
+import Alert from '../Alerts/Alert';
 import { useNavigate } from 'react-router-dom';
 function App() {
     
@@ -13,7 +13,7 @@ function App() {
     const [password,setPassword] = useState<string>("");
     const {addToken} = useMyContext();
     const [inputError, setInputError] = useState<string>("");
-
+    const [alertText,setAlertText] = useState<string>("");
     const {alert, updateAlert} = useMyAlertContext();
     const navigate = useNavigate();
     const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
@@ -34,6 +34,7 @@ function App() {
                 updateAlert(true);
                 setInputError(styles.inputError);
                 console.log("Fuking not" + resData.token);
+                setAlertText("Your password or email is incorrect")
             } else {
                 addToken(resData);
                 navigate("/Properties")
@@ -42,6 +43,7 @@ function App() {
         }
         catch(error){
             updateAlert(true);
+            setAlertText("Server error")
             setInputError(styles.inputError);
             console.log("FRAP" + error);
         }
@@ -76,7 +78,7 @@ function App() {
                     </div>
                 </div>
             </div>
-            {alert&& <ErrorAlert errorMsg={"Wrong email or password"}></ErrorAlert>}
+            {alert&& <Alert error={true} alertMsg={alertText}></Alert>}
 
         </div>
 

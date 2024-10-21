@@ -5,7 +5,7 @@ import {IToken, IUser } from '../interfaces';
 import axios, { AxiosResponse } from 'axios';
 import { useMyContext } from '../Contexts/TokenContext';
 import { useMyAlertContext } from '../Contexts/AlertContext';
-import ErrorAlert from '../Alerts/ErrorAlert';
+import Alert from '../Alerts/Alert';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -15,8 +15,9 @@ function App() {
     const [password,setPassword] = useState<string>("");
     const {addToken} = useMyContext();
     const [inputError, setInputError] = useState<string>("");
+    const [alertMsg, setAlertMsg] = useState<string>("");
 
-    const {alert, updateAlert} = useMyAlertContext();
+    const { alert,updateAlert} = useMyAlertContext();
     const navigate = useNavigate();
     const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
         e.preventDefault();
@@ -34,6 +35,7 @@ function App() {
             if(!resData){
                 setInputError(styles.inputError)
                 updateAlert(true)
+                setAlertMsg("Email already exists.")
             }
             else{
                 navigate("/login")
@@ -43,6 +45,7 @@ function App() {
         catch(error){
             setInputError(styles.inputError)
             updateAlert(true)
+            setAlertMsg("Server error.")
             console.log(error);
         }
 
@@ -79,7 +82,7 @@ function App() {
                     </div>
                 </div>
             </div>
-            {alert && <ErrorAlert errorMsg={"Email already used"}></ErrorAlert>}
+            {alert&& <Alert error={true} alertMsg={alertMsg}></Alert>}
         </div>
 
     );

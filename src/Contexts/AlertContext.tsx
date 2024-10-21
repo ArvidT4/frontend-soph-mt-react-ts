@@ -1,4 +1,4 @@
-import {ReactNode, createContext, useContext, useState } from "react"
+import {ReactNode, createContext, useContext, useState, useEffect} from "react"
 
 interface IAlertContext{
     alert:boolean
@@ -9,10 +9,20 @@ const MyContext = createContext<IAlertContext|undefined>(undefined)
 
 const MyAlertProvider: React.FC<{children:ReactNode}> = ({children})=>{
     const [alert,setAlert] = useState<boolean>(false);
+    const DURATION:number = 5000;
     const updateAlert=(status:boolean):void=>{
         setAlert(status);
         console.log(alert);
     }
+    useEffect(() => {
+
+        const timer = setTimeout(()=>{
+            setAlert(false)
+        },DURATION)
+        return ()=> clearTimeout(timer);
+    }, [alert]);
+
+
     return (
         <MyContext.Provider value={{alert,updateAlert}}>
             {children}
