@@ -11,13 +11,13 @@
     @apply  m-auto h-14 w-4/5 bg-red-400 rounded;
 }
 .errorMsg{
-    @apply border-r border-red-600 opacity-100 col-span-4 flex
+    @apply border-r border-red-600 col-span-4 flex
 }
 .successContainer{
     @apply  m-auto h-14 w-4/5 bg-green-400 rounded;
 }
 .successMsg{
-    @apply border-r border-green-600 opacity-100 col-span-4 flex
+    @apply border-r border-green-600 col-span-4 flex
 }
 .msg{
     @apply m-auto

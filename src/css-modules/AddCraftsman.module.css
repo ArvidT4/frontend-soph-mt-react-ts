@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.customInput{
+    @apply border rounded-md w-full drop-shadow-md p-3
+}
+.inputTitle{
+    @apply text-lg font-bold
+}
+.inputWrap{
+    @apply  w-full  p-3 mt-2 mb-3
+}
+.error{
+    @apply border border-red-500 bg-red-200 rounded-md w-full drop-shadow-md p-3
+}
+.wrap{
+    @apply mt-10 mb-5 m-4
+}

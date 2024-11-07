@@ -9,31 +9,38 @@ import { useNavigate } from 'react-router-dom';
 import {useMyAlertContext} from "../Contexts/AlertContext";
 import Alert from "../Alerts/Alert";
 
-const PropertyPage=()=>{
+const PropertyPage=()=> {
     const navigate = useNavigate();
-    const {properties,getProperties}=useMyPropertiesContext();
+    const {properties, getProperties} = useMyPropertiesContext();
     const {alert} = useMyAlertContext();
-    const {token}=useMyContext();
+    const {token} = useMyContext();
     useEffect(() => {
-        //const token:IToken=getToken();
-        
-        if(token){
-            getProperties(token.token);
+        if (token) {
+            getProperties(token);
             console.log(token)
-
         }
     }, []);
+    const renderAdd=()=>{
+        if(token&&token.role==="customer"){
+            const addButton: React.ReactElement =
+                <div>
+                    <button className={propPage.buttonAdd} onClick={() => navigate("/addProperty")}>Add property</button>
+                </div>
+            return addButton
+        }
+        else return null
+    }
+
 
     return (
         <div>
             <H1Banner header={"Properties"}></H1Banner>
-            <div>
-                <button className={propPage.buttonAdd} onClick={()=>navigate("/addProperty")}>Add property</button>
-            </div>
-            {properties && properties.length>0 ? (properties.map((object:IProperty,key)=>{
+            {renderAdd()}
+
+            {properties && properties.length > 0 ? (properties.map((object: IProperty, key) => {
                 return <Property key={key} property={object}></Property>
             })) : (<div>loading</div>)}
-            {alert&&<Alert error={false} alertMsg={"Successful"}></Alert>}
+            {alert && <Alert error={false} alertMsg={"Successful"}></Alert>}
         </div>
     );
 }

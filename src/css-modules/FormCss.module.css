@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.customInput{
+    @apply border rounded-md w-full drop-shadow-md p-3
+}
+.inputTitle{
+    @apply text-xl font-bold
+}
+.inputWrap{
+    @apply  w-full  p-3 mt-2
+}
+.postalWrap{
+    @apply grid grid-cols-5 gap-2
+}
+.postalInput3{
+    @apply col-span-3
+}
+.postalInput2{
+    @apply col-span-2
+}
+.error{
+    @apply border border-red-500 bg-red-200 rounded-md w-full drop-shadow-md p-3
+}
+.length{
+    @apply order-last mt-2
+}
+.lengthErrorText{
+    @apply order-last mt-2 text-red-500
+}
+.spanWrap{
+    @apply flex justify-between
+}
+.errorText{
+    @apply text-red-500 drop-shadow
+}

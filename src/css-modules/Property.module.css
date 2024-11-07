@@ -28,7 +28,7 @@
 }
 
 .dropdownContent {
-    @apply opacity-100 h-60 p-3 font-serif transition-all duration-500 overflow-hidden;
+    @apply opacity-100 min-h-60 p-3 font-serif transition-all duration-500 overflow-hidden;
 }
 .propInfo{
     @apply m-2 text-lg transition-all

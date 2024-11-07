@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.menuButtonWrap{
+    @apply ml-0 p-2 pl-0 cursor-pointer
+}
+.menuButton{
+    @apply w-8 rotate-90
+}
+
+
+.buttonWrap{
+    @apply border p-1 mb-3 mt-3 rounded-md bg-green-300
+}
+.button{
+   @apply col-start-2 col-end-4 m-auto border-black h-10 w-10 rounded-md
+}
+.buttonText{
+    @apply text-5xl m-0 p-0 text-center w-full h-full
+}
+.buttonWrap{
+    @apply grid grid-cols-8
+}
+.buttonTitle{
+    @apply text-lg m-auto col-start-4 col-end-8
+}

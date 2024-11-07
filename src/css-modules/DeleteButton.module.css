@@ -6,3 +6,18 @@
 .utilityImg{
     @apply w-12 m-auto cursor-pointer hover:drop-shadow-xl transition-all duration-300 hover:opacity-50
 }
+.button{
+    @apply col-start-2 col-end-4 m-auto h-9 w-9 rounded-md
+}
+.buttonWrap{
+    @apply border p-1 rounded-md m-3 bg-green-300
+}
+.buttonText{
+    @apply text-3xl m-0 p-0 text-center w-full h-full
+}
+.buttonWrap{
+    @apply grid grid-cols-8
+}
+.buttonTitle{
+    @apply text-lg m-auto col-start-4 col-end-8
+}

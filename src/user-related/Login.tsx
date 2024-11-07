@@ -1,4 +1,4 @@
-import React, {useState, MouseEvent, SyntheticEvent} from 'react';
+import React, {useState, MouseEvent, SyntheticEvent, useEffect} from 'react';
 import styles from "../css-modules/UserLoginRegister.module.css"
 import axios, { AxiosResponse } from 'axios';
 import * as events from "events";
@@ -16,13 +16,18 @@ function App() {
     const [alertText,setAlertText] = useState<string>("");
     const {alert, updateAlert} = useMyAlertContext();
     const navigate = useNavigate();
-    const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+    const handleChange=(e:React.ChangeEvent<HTMLInputElement>,set:React.Dispatch<React.SetStateAction<any>>)=>{
         e.preventDefault();
-        if(e.target.name === 'email'){
-            setEmail(e.target.value);
-        }
-        else setPassword(e.target.value);
+        const sanitizedValue = e.target.value.replace(/\s/g, '');
+        set(sanitizedValue);
+        console.log(email + " " + password)
     }
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>, setValue: React.Dispatch<React.SetStateAction<string>>) => {
+        setValue(e.target.value.trim()); // Ensures trimming on blur for any trailing/leading spaces
+    };
+    useEffect(() => {
+        console.log(email + " " + password)
+    }, [email,password]);
 
     const postLogin = async():Promise<void>=>{
         try{
@@ -62,23 +67,37 @@ function App() {
                     </div>
                     <div className={styles.inputHolder}>
                         <label>Email</label>
-                        <input type={"email"} name={"email"} onChange={(e) => handleChange(e)}
-                               placeholder={"email@sophämt.se"} className={styles.input + " " + inputError}/>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => handleChange(e, setEmail)}
+                            onBlur={(e) => handleBlur(e, setEmail)}
+                            placeholder="email@sophämt.se"
+                            className={`${styles.input} ${inputError}`}
+                        />
                     </div>
+
                     <div className={styles.inputHolder}>
                         <label>Password</label>
-                        <input type={"password"} onChange={(e) => handleChange(e)} placeholder={"**********"}
-                               className={styles.input + " " + inputError}/>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => handleChange(e, setPassword)}
+                            onBlur={(e) => handleBlur(e, setPassword)}
+                            placeholder="**********"
+                            className={`${styles.input} ${inputError}`}
+                        />
                     </div>
                     <div className={styles.inputHolder + " " + styles.signIn}>
-                        <label>First time here? <a href={"/registerCustomer"} className={styles.redirect}>Sign up here!</a></label>
+                        <label>First time here? <a href={"/registerCustomer"} className={styles.redirect}>Sign up
+                            here!</a></label>
                     </div>
                     <div className={styles.inputHolder}>
                         <button onClick={postLogin} className={styles.button}>Sign in</button>
                     </div>
                 </div>
             </div>
-            {alert&& <Alert error={true} alertMsg={alertText}></Alert>}
+            {alert && <Alert error={true} alertMsg={alertText}></Alert>}
 
         </div>
 

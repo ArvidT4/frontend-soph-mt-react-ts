@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.header{
+    @apply text-2xl m-6
+}
+.address{
+    @apply text-2xl font-bold;
+}

@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.input{
-    @apply p-3 w-full rounded-lg drop-shadow
+.customInput{
+    @apply p-3 w-full rounded-xl drop-shadow
 }
 .wrap{
     @apply border border-black w-full h-full
@@ -13,7 +13,4 @@
 }
 .inputDiv{
     @apply p-3
-}
-.button{
-    @apply p-3 rounded-md bg-green-500 text-white font-bold w-full;
 }

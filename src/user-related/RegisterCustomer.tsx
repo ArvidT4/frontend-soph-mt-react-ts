@@ -19,13 +19,15 @@ function App() {
 
     const { alert,updateAlert} = useMyAlertContext();
     const navigate = useNavigate();
-    const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+    const handleChange=(e:React.ChangeEvent<HTMLInputElement>,set:React.Dispatch<React.SetStateAction<any>>)=>{
         e.preventDefault();
-        if(e.target.name === 'email'){
-            setEmail(e.target.value);
-        }
-        else setPassword(e.target.value);
+        const sanitizedValue = e.target.value.replace(/\s/g, '');
+        set(sanitizedValue);
+        console.log(email + " " + password)
     }
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>, setValue: React.Dispatch<React.SetStateAction<string>>) => {
+        setValue(e.target.value.trim()); // Ensures trimming on blur for any trailing/leading spaces
+    };
     const register = async():Promise<void>=>{
         try{
             const user:IUser=({email: email, password: password})
@@ -65,13 +67,26 @@ function App() {
                     </div>
                     <div className={styles.inputHolder}>
                         <label>Email</label>
-                        <input className={styles.input + " " + inputError} type={"email"} name={"email"}
-                               onChange={(e) => handleChange(e)} placeholder={"email@sophämt.se"}/>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => handleChange(e, setEmail)}
+                            onBlur={(e) => handleBlur(e, setEmail)}
+                            placeholder="email@sophämt.se"
+                            className={`${styles.input} ${inputError}`}
+                        />
                     </div>
+
                     <div className={styles.inputHolder}>
                         <label>Password</label>
-                        <input className={styles.input + " " + inputError} type={"password"} name={"password"}
-                               onChange={(e) => handleChange(e)} placeholder={"**********"}/>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => handleChange(e, setPassword)}
+                            onBlur={(e) => handleBlur(e, setPassword)}
+                            placeholder="**********"
+                            className={`${styles.input} ${inputError}`}
+                        />
                     </div>
                     <div className={styles.inputHolder + " " + styles.signIn}>
                         <label>Already got an account? <a className={styles.redirect} href={"/login"}>Sign in
@@ -82,7 +97,7 @@ function App() {
                     </div>
                 </div>
             </div>
-            {alert&& <Alert error={true} alertMsg={alertMsg}></Alert>}
+            {alert && <Alert error={true} alertMsg={alertMsg}></Alert>}
         </div>
 
     );

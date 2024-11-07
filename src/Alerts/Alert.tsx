@@ -18,7 +18,7 @@ const Alert = ({alertMsg,error}: IAlerts) => {
     const exit: react.ReactElement = <div className={styles.exit} onClick={exitButton}><span className={styles.exitButton}>X</span></div>
     const container: react.ReactElement =
         <div>
-            <div className={error?styles.errorContainer:styles.successContainer + " " + alert?styles.easeIn:styles.easeOut}>
+            <div className={error?styles.errorContainer:styles.successContainer}>
                 <div className={styles.msgContainer}>{msg}{exit}</div>
             </div>
         </div>
