@@ -7,7 +7,7 @@ const AddRequest=()=>{
     return(
         <div>
             <H1Banner header={`Add request ${propAddress}`}></H1Banner>
-            <RequestForm></RequestForm>
+            <RequestForm address={propAddress}></RequestForm>
         </div>
     )
 }

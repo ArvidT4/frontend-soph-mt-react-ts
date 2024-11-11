@@ -105,7 +105,6 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
                 address:address,
             }
         })
-
         console.log(response)
         if(response.status===200){
             setProperties(response.data)

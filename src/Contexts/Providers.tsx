@@ -4,20 +4,22 @@ import { MyInputValidationProvider } from "./InputValidationContext";
 import { MyPropertiesProvider } from "./PropertyContext";
 import { MyTokenProvider } from "./TokenContext"
 import React from 'react';
+import {MyRequestProvider} from "./RequestContext";
 const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
 
         <MyTokenProvider>
-            <MyHandleChangeProvider>
-                <MyInputValidationProvider>
-                    <MyAlertProvider>
-                        <MyPropertiesProvider>
-                            {children}
-                        </MyPropertiesProvider>
-                    </MyAlertProvider>
-                </MyInputValidationProvider>
-            </MyHandleChangeProvider>
-
+            <MyRequestProvider>
+                <MyHandleChangeProvider>
+                    <MyInputValidationProvider>
+                        <MyAlertProvider>
+                            <MyPropertiesProvider>
+                                {children}
+                            </MyPropertiesProvider>
+                        </MyAlertProvider>
+                    </MyInputValidationProvider>
+                </MyHandleChangeProvider>
+            </MyRequestProvider>
         </MyTokenProvider>
     )
 }

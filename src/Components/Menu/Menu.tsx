@@ -3,11 +3,8 @@ import DeleteButton from "./DeleteButton"
 import EditButton from "./EditButton"
 import css from "../../css-modules/Menu.module.css"
 import AddCraftsman from "./AddCraftsman"
-import addButton from "../../images/add.png"
-import editButton from "../../images/edit.svg.png"
-import deleteButton from "../../images/trashCan.png"
-import { useMyPropertiesContext } from "../../Contexts/PropertyContext"
-import { useMyContext } from "../../Contexts/TokenContext"
+import addButton from "../../images/trashCan.png"
+
 import AddRequest from "./AddRequest"
 interface MenuProps{
     prop:IProperty

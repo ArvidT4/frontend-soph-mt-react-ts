@@ -20,14 +20,10 @@ function App() {
         e.preventDefault();
         const sanitizedValue = e.target.value.replace(/\s/g, '');
         set(sanitizedValue);
-        console.log(email + " " + password)
     }
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>, setValue: React.Dispatch<React.SetStateAction<string>>) => {
         setValue(e.target.value.trim()); // Ensures trimming on blur for any trailing/leading spaces
     };
-    useEffect(() => {
-        console.log(email + " " + password)
-    }, [email,password]);
 
     const postLogin = async():Promise<void>=>{
         try{

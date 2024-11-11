@@ -1,4 +1,4 @@
-import menuButton from "../../images/pngegg.png"
+import menuButton from "../../images/trashCan.png"
 import css from "../../css-modules/Menu.module.css"
 import { useState } from "react"
 
