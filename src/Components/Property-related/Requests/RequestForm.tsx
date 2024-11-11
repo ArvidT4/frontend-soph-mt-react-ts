@@ -4,12 +4,13 @@ import { useState } from "react";
 import { useMyHandleChangeContext } from "../../../Contexts/HandleChangeContext";
 import PerformOrCancelButtons from "../../PerformOrCancelButtons";
 import DatePicker from "./DatePicker";
-const RequestForm:React.FC=()=>{
+import { ToggleSwitch } from "flowbite-react";
+const RequestForm=()=>{
 
     const {handleChange}=useMyHandleChangeContext();
     const [comment,setComment]=useState<string>("");
-    const [startingDate,setStartingDate]=useState<string>("");
-    const [deadlineDate,setDeadlineDate]=useState<string>("");
+    const [startingDate,setStartingDate]=useState<Date|undefined>();
+    const [deadlineDate,setDeadlineDate]=useState<Date|undefined>();
     const [workerEmail,setWorkerEmail]=useState<string>("");
     const [archived,setArchived]=useState<boolean>(false);
     const [freeAgent,setFreeAgent]=useState<boolean>(false);
@@ -20,29 +21,28 @@ const RequestForm:React.FC=()=>{
         <div>
             <div className={styles.inputWrap}>
                 <span className={styles.inputTitle}>Comment:</span>
-                <input type={"text"} name={"comment"} value={comment} onChange={(e) => handleChange(e, setComment)}
+                <textarea name={"comment"} value={comment} onChange={(e) => handleChange(e, setComment)}
                        className={false ? styles.error : styles.customInput} placeholder={"...."}/>
                 <ErrorText show={false} msg={"Must be or longer than 0 shorter than 25"}/>
             </div>
-            <DatePicker></DatePicker>
+            <div className={styles.inputWrap}>
+                <DatePicker startDate={startingDate} setStart={setStartingDate} setDeadline={setDeadlineDate}></DatePicker>
+            </div>
+
 
             <div className={styles.inputWrap}>
-                <span className={styles.inputTitle}>Comment:</span>
+                <span className={styles.inputTitle}>Craftsman:</span>
                 <input type={"text"} name={"comment"} value={comment} onChange={(e) => handleChange(e, setComment)}
                        className={false ? styles.error : styles.customInput} placeholder={"...."}/>
                 <ErrorText show={false} msg={"Must be or longer than 0 shorter than 25"}/>
             </div>
             <div className={styles.inputWrap}>
-                <span className={styles.inputTitle}>Comment:</span>
-                <input type={"text"} name={"comment"} value={comment} onChange={(e) => handleChange(e, setComment)}
-                       className={false ? styles.error : styles.customInput} placeholder={"...."}/>
+                <ToggleSwitch checked={archived} label="Archived" onChange={setArchived} />
                 <ErrorText show={false} msg={"Must be or longer than 0 shorter than 25"}/>
             </div>
             <div className={styles.inputWrap}>
-                <span className={styles.inputTitle}>Comment:</span>
-                <input type={"text"} name={"comment"} value={comment} onChange={(e) => handleChange(e, setComment)}
-                       className={false ? styles.error : styles.customInput} placeholder={"...."}/>
-                <ErrorText show={false} msg={"Must be or longer than 0 shorter than 25"}/>
+
+                <ToggleSwitch checked={freeAgent} label="Free agent" onChange={setFreeAgent} />
             </div>
             <PerformOrCancelButtons propFunc={addRequest}></PerformOrCancelButtons>
         </div>
