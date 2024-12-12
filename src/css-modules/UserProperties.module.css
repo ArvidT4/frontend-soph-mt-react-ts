@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.empPWrap{
+    @apply border m-3 rounded-lg
+}
+.emailWrap{
+    @apply p-6 rounded-t-lg bg-gradient-to-t from-green-400 to-green-300  cursor-pointer
+}
+.emailText{
+    @apply text-2xl text-white font-bold
+}
+.userPropsWrap{
+    @apply m-3
+}
+.propsH3{
+    @apply font-bold text-xl
+}
+.userPropWrap{
+    @apply border grid grid-cols-2 p-3 rounded-lg
+}
+.propTitles{
+    @apply font-bold
+}
+.propInfoWrapLeft{
+    @apply justify-self-start
+}
+.propInfoWrapRight{
+    @apply justify-self-end
+}
+.fullCol{
+    @apply border-t mt-2 pt-2 col-span-2
+}
+.reqLength{
+    @apply font-bold
+}
+.link{
+     @apply text-blue-700 hover:text-blue-600 underline
+}

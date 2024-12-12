@@ -12,19 +12,8 @@ interface props{
 
 }
 const DeleteButton:React.FC<props> =({address}:props)=> {
-    const {removeProperty} = useMyPropertiesContext()
-    const {token} = useMyContext()
-    const deleteProp = () => {
-        try {
-            if (token) {
-                removeProperty(token.token, address)
-                console.log("test")
-            }
-        } catch (error) {
-            console.log("test")
-        }
 
-    }
+
     const navigate=useNavigate();
     const deleteNavigate=()=>{
         navigate(`/Properties/${address}/deleteProperty`)

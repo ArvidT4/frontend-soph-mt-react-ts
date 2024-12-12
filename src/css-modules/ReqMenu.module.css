@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.img{
+    @apply w-10 cursor-pointer m-auto
+}
+.imgArchive{
+    @apply w-8 cursor-pointer justify-self-center mt-1
+}
+.imgWrap{
+    @apply w-full bg-red-500 rounded-lg m-3 mt-0 mb-0
+}
+.wrap{
+    @apply flex gap-2 mb-3
+}
+.archiveWrap{
+    @apply w-full bg-green-500 m-3 rounded-lg mt-0 mb-0
+}

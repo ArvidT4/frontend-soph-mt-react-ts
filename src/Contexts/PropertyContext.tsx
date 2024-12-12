@@ -1,19 +1,22 @@
 import {ReactNode, createContext, useContext, useState, useEffect} from "react";
-import {IProperty, IResponse, IToken} from "../interfaces";
+import {IProperty, IResponse, IToken,IUserProperties} from "../interfaces";
 import axios, { AxiosResponse } from "axios";
 import {
     getLocalStorage,
-    getPropertyArrayFromSessionStorage,
+    getPropertyArrayFromSessionStorage, getUserPropertyArrayFromSessionStorage,
     removeLocalStorage,
     setLocalStorage
 } from "./LocalStorage.";
 import {useMyContext} from "./TokenContext";
+import { useMyUPContext } from "./UserPropertiesContext";
 axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 interface PropertyContext{
     properties:IProperty[]|undefined;
+    userPropertiesList:IUserProperties[]|undefined;
     removeProperty:(token:string,address:string)=>Promise<boolean>;
+    setProperties:React.Dispatch<React.SetStateAction<any>>
     getProperty:(address:string)=>IProperty|undefined;
     getProperties:(token:IToken)=>void;
     createProperty:(property:IProperty,token:string)=>Promise<boolean>;
@@ -24,7 +27,7 @@ const MyContext = createContext<PropertyContext|undefined>(undefined)
 
 const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
     const [properties,setProperties] = useState<IProperty[]|undefined>();
-
+    const [userPropertiesList,setUserPropertiesList]=useState<IUserProperties[]>();
 
     useEffect(()=>{
         const storedProperties: IProperty[] = getPropertyArrayFromSessionStorage();
@@ -40,6 +43,8 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
             sessionStorage.removeItem('properties');
         }
     }, [properties]);
+
+
     const getProperty=(address:string):IProperty|undefined=>{
         if(properties){
             console.log("test")
@@ -48,19 +53,15 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
             return property
         }else return undefined
     }
+    const {getPropertiesForEmployee} = useMyUPContext();
     const getProperties= async(token:IToken)=>{
 
         try{
             console.log("tefds" + token)
                 console.log("tefds")
-                let response:AxiosResponse= await axios.get("http://localhost:9898/getAllProperties",{
-                    params:{
-                        token:token.token,
-                    }
-                })
-                setProperties(response.data);
-                console.log(response.data)
 
+            if(token.role=="employee")getPropertiesForEmployee(token);
+            else if(token.role=="customer")getPropertiesForCustomer(token)
 
         }
         catch(error){
@@ -68,6 +69,16 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
         }
 
     }
+    const getPropertiesForCustomer= async(token:IToken)=>{
+        let response:AxiosResponse= await axios.get("http://localhost:9898/getAllProperties",{
+            params:{
+                token:token.token,
+            }
+        })
+        setProperties(response.data);
+        console.log(response.data)
+    }
+
     const createProperty= async (property:IProperty,token:string): Promise<boolean>=>{
         try{
             const response:AxiosResponse= await axios.post("http://localhost:9898/createProperty",
@@ -176,7 +187,7 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
 
     }
     return (
-        <MyContext.Provider value={{properties,removeProperty,getProperty,getProperties,createProperty,editProperty,addWorkerToProperty}}>
+        <MyContext.Provider value={{properties,userPropertiesList,removeProperty,getProperty,getProperties,createProperty,editProperty,addWorkerToProperty,setProperties}}>
             {children}
         </MyContext.Provider>
     )

@@ -8,38 +8,36 @@ import { useMyContext } from '../Contexts/TokenContext';
 import { useNavigate } from 'react-router-dom';
 import {useMyAlertContext} from "../Contexts/AlertContext";
 import Alert from "../Alerts/Alert";
+import CustomerProps from '../Components/Property-related/PropertyLists/CustomerProps';
+import EmployeeProps from '../Components/Property-related/PropertyLists/Employee/EmployeeProps';
 
 const PropertyPage=()=> {
+    const [render,setRender]=useState<boolean>(false)
+    const [role,setRole]=useState<string>("");
+    const [h1Text,setH1Text]=useState<string>("Properties");
     const navigate = useNavigate();
-    const {properties, getProperties} = useMyPropertiesContext();
+    const {getProperties} = useMyPropertiesContext();
     const {alert} = useMyAlertContext();
-    const {token} = useMyContext();
+    const {token,checkToken} = useMyContext();
     useEffect(() => {
         if (token) {
+            if(token.role==="employee") setH1Text("Customers")
+            console.log("test")
+            setRole(token.role);
+            checkToken().then(success=>{
+                if(success)navigate("/login")
+            })
             getProperties(token);
-            console.log(token)
+            setRender(true);
         }
-    }, []);
-    const renderAdd=()=>{
-        if(token&&token.role==="customer"){
-            const addButton: React.ReactElement =
-                <div>
-                    <button className={propPage.buttonAdd} onClick={() => navigate("/addProperty")}>Add property</button>
-                </div>
-            return addButton
-        }
-        else return null
-    }
+    }, [token]);
 
 
     return (
         <div>
-            <H1Banner header={"Properties"}></H1Banner>
-            {renderAdd()}
-
-            {properties && properties.length > 0 ? (properties.map((object: IProperty, key) => {
-                return <Property key={key} property={object}></Property>
-            })) : (<div>loading</div>)}
+            <H1Banner header={h1Text}></H1Banner>
+            {render&&role=="customer"&&<CustomerProps></CustomerProps>}
+            {render&&role=="employee"&&<EmployeeProps></EmployeeProps>}
             {alert && <Alert error={false} alertMsg={"Successful"}></Alert>}
         </div>
     );

@@ -16,7 +16,8 @@ const AddProperty = () => {
         postCode: "00000",
         state: "",
         id: "",
-        collectingId: ""
+        emailList:[],
+        workRequests:[],
     }
 
     return (

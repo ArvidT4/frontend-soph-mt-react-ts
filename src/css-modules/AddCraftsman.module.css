@@ -17,3 +17,15 @@
 .wrap{
     @apply mt-10 mb-5 m-4
 }
+.length{
+    @apply order-last mt-2
+}
+.lengthErrorText{
+    @apply order-last mt-2 text-red-500
+}
+.spanWrap{
+    @apply flex justify-between
+}
+.errorText{
+    @apply text-red-500 drop-shadow
+}

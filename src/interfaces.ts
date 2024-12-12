@@ -20,8 +20,12 @@ export interface IProperty{
     city:string;
     postCode:string;
     state:string;
-    collectingId:string;
-    //List<RequestGather> workRequests;
+    emailList:string[];
+    workRequests:IRequest[];
+}
+export interface IUserProperties{
+    userEmail:string,
+    propertyList:IProperty[];
 }
 export interface IRequest{
     id:string;
@@ -32,6 +36,7 @@ export interface IRequest{
     archived:boolean;
     accepted:boolean;
     freeAgent:boolean;
+    finished:boolean;
 }
 export interface IResponse{
     res:string;

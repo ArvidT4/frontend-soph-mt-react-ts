@@ -4,41 +4,55 @@ import {useEffect, useState} from "react";
 import { useMyHandleChangeContext } from "../../../Contexts/HandleChangeContext";
 import PerformOrCancelButtons from "../../PerformOrCancelButtons";
 import DatePicker from "./DatePicker";
-import { ToggleSwitch } from "flowbite-react";
+import {ToggleSwitch } from "flowbite-react";
 import {IRequest} from "../../../interfaces";
 import {useMyRequestContext} from "../../../Contexts/RequestContext";
 import {useMyContext} from "../../../Contexts/TokenContext";
+import CraftsmanListDropdown from "./CraftsmanListDropdown";
+import { useMyInputValidationContext } from "../../../Contexts/InputValidationContext";
+import Alert from "../../../Alerts/Alert"
+import { useNavigate } from "react-router-dom";
+import { useMyAlertContext } from "../../../Contexts/AlertContext";
 interface RequestProps{
     address:string|undefined
 }
 const RequestForm:React.FC<RequestProps>=({address})=>{
-
+    const navigate=useNavigate();
     const {addRequest} =useMyRequestContext();
     const {handleChange}=useMyHandleChangeContext();
     const {token}=useMyContext();
     const [comment,setComment]=useState<string>("");
     const [startingDate,setStartingDate]=useState<Date|undefined>();
     const [deadlineDate,setDeadlineDate]=useState<Date|undefined>();
-    const [workerEmail,setWorkerEmail]=useState<string>("");
+    const [workerEmail,setWorkerEmail]=useState<string>("Choose craftsman");
     const [archived,setArchived]=useState<boolean>(false);
     const [freeAgent,setFreeAgent]=useState<boolean>(false);
-    /*export interface IRequest{
-        id:string;
-        comment:string;
-        startingDate:string;
-        deadlineDate:string;
-        workerEmail:string;
-        archived:boolean;
-        accepted:boolean;
-        freeAgent:boolean;
-    }*/
+    const [render,setRender]=useState<boolean>(false);
+    const [alertMsg,setAlertMsg]=useState<string>("");
+    const {alert,updateAlert} = useMyAlertContext();
     useEffect(() => {
-        console.log(startingDate +" " + deadlineDate?.getDay() + "/" + deadlineDate?.getMonth() + "/" + deadlineDate?.getFullYear());
-    }, [startingDate,deadlineDate]);
+        console.log(address);
+        if(address){
+            setRender(true)
+        }
+    }, []);
+    useEffect(() => {
+        requestVaildator(comment,startingDate,deadlineDate,workerEmail,freeAgent)
+    }, [comment,startingDate,deadlineDate,workerEmail,freeAgent]);
+    const {
+        commentReqError,
+        startingError,
+        deadlineError,
+        craftsmanError,
+        requestVaildator}=useMyInputValidationContext();
     const add= async ()=>{
-        if(token&&address){
+        if(token&&address&&!commentReqError&&!startingError&&!craftsmanError){
+            if(startingDate==undefined)setStartingDate(new Date());
+            if(deadlineDate==undefined)setDeadlineDate(new Date());
+
             const starting:string=startingDate?.getDay() + "/" + startingDate?.getMonth() + "/" + startingDate?.getFullYear();
             const deadline:string=deadlineDate?.getDay() + "/" + deadlineDate?.getMonth() + "/" + deadlineDate?.getFullYear();
+            if(workerEmail=="Choose craftsman") setWorkerEmail("")
             const request:IRequest={
                 id:"",
                 comment:comment,
@@ -47,9 +61,22 @@ const RequestForm:React.FC<RequestProps>=({address})=>{
                 workerEmail:workerEmail,
                 archived:archived,
                 accepted:false,
-                freeAgent:freeAgent
+                freeAgent:freeAgent,
+                finished:false,
             };
-            const approved= addRequest(request,token.token,address,workerEmail);
+            console.log(request)
+            addRequest(request,token.token,address,workerEmail).then(success=>{
+                if(success)navigate("/properties")
+                else {
+                    setAlertMsg("Server error");
+                    updateAlert(true)
+                }
+            })
+        }
+        else {
+            console.log(token,address,commentReqError,startingError,craftsmanError)
+            setAlertMsg("Demands not meet");
+            updateAlert(true)
         }
 
 
@@ -57,30 +84,34 @@ const RequestForm:React.FC<RequestProps>=({address})=>{
     return(
         <div>
             <div className={styles.inputWrap}>
-                <span className={styles.inputTitle}>Comment:</span>
+
+                <div className={styles.spanWrap}>
+                    <span className={styles.inputTitle}>Comment:</span>
+                    <span className={commentReqError ? styles.lengthErrorText : styles.length}>{comment.length}/50</span>
+                </div>
                 <textarea name={"comment"} value={comment} onChange={(e) => handleChange(e, setComment)}
-                       className={false ? styles.error : styles.customInput} placeholder={"...."}/>
-                <ErrorText show={false} msg={"Must be or longer than 0 shorter than 25"}/>
+                          className={false ? styles.error : styles.customInput} placeholder={"...."}/>
+                <ErrorText show={commentReqError} msg={"Must be or longer than 0 shorter than 50"}/>
             </div>
             <div className={styles.inputWrap}>
-                <DatePicker startDate={startingDate} setStart={setStartingDate} setDeadline={setDeadlineDate}></DatePicker>
+                <DatePicker startDate={startingDate} setStart={setStartingDate}
+                            deadDate={deadlineDate} setDeadline={setDeadlineDate}></DatePicker>
+                <ErrorText show={startingError} msg={"The starting date must be before the deadline"}/>
+
             </div>
-
-
             <div className={styles.inputWrap}>
+                <ToggleSwitch checked={freeAgent} label="Free agent" onChange={setFreeAgent}/>
+            </div>
+            {!freeAgent && <div className={styles.inputWrap}>
                 <span className={styles.inputTitle}>Craftsman:</span>
-                <input type={"text"} name={"comment"} value={workerEmail} onChange={(e) => handleChange(e, setWorkerEmail)}
-                       className={false ? styles.error : styles.customInput} placeholder={"...."}/>
-                <ErrorText show={false} msg={"Must be or longer than 0 shorter than 25"}/>
-            </div>
+                {render&&<CraftsmanListDropdown address={address} workerEmail={workerEmail} setWorkerEmail={setWorkerEmail}></CraftsmanListDropdown>}
+                <ErrorText show={craftsmanError} msg={"Choose craftsman or turn on Free agent"}/>
+            </div>}
             <div className={styles.inputWrap}>
-                <ToggleSwitch checked={archived} label="Archived" onChange={setArchived} />
-                <ErrorText show={false} msg={"Must be or longer than 0 shorter than 25"}/>
+                <ToggleSwitch checked={archived} label="Archived" onChange={setArchived}/>
             </div>
-            <div className={styles.inputWrap}>
+            {alert && <Alert alertMsg={alertMsg} error={true}></Alert>}
 
-                <ToggleSwitch checked={freeAgent} label="Free agent" onChange={setFreeAgent} />
-            </div>
             <PerformOrCancelButtons propFunc={add}></PerformOrCancelButtons>
         </div>
     )

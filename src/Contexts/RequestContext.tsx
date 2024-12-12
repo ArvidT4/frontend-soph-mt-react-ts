@@ -1,22 +1,28 @@
-import {createContext, ReactNode, useContext} from "react";
+import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";
-import {IRequest} from "../interfaces";
+import {IProperty, IRequest, IResponse, IToken} from "../interfaces";
+import { useMyPropertiesContext } from "./PropertyContext";
 
 
 interface RequestInterface{
+    request:IRequest|undefined,
     addRequest:(request:IRequest,token:string,address:string,workerEmail:string)=>Promise<boolean>,
+    deleteRequest:(token:string,reqId:string,propAddress:string)=>Promise<boolean>,
+    getRequest:(propAddress:string,reqId:string, properties:IProperty[])=>void
+    updateArchive:(request:IRequest,token:string,propAddress:string,reqId:string)=>Promise<boolean>,
+    acceptRequest:(request:IRequest,token:IToken,propAddress:string,email:string)=>void,
 }
 
 
 const RequestContext=createContext<RequestInterface|undefined>(undefined);
 
 const MyRequestProvider:React.FC<{ children: ReactNode }>=({children})=>{
+    const {setProperties}=useMyPropertiesContext();
+    const [property,setProperty]=useState<IProperty|undefined>();
+    const [request,setRequest]=useState<IRequest|undefined>();
+    const [reqId,setReqId]=useState<string>("");
     const addRequest= async (request:IRequest,token:string,address:string,workerEmail:string):Promise<boolean>=>{
 
-        console.log(request)
-        console.log(token)
-        console.log(address)
-        console.log(workerEmail)
         const response:AxiosResponse=await axios.post("http://localhost:9898/createGarbageRequest",{
             id:"",
             comment:request.comment,
@@ -34,13 +40,88 @@ const MyRequestProvider:React.FC<{ children: ReactNode }>=({children})=>{
                 }
             }
         )
-        console.log(response);
-
         return true;
     }
 
+    const deleteRequest= async (token:string,reqId:string,propAddress:string):Promise<boolean>=>{
+        const response:AxiosResponse = await axios.delete("http://localhost:9898/DeleteRequest",{
+            params:{
+                token:token,
+                reqId:reqId,
+                propAddress:propAddress,
+            }
+        })
+        console.log(response.data);
+        const res:IResponse=response.data;
+        if(res.res==='success'){
+            setProperties(res.properties);
+            return true;
+        }
+        return false;
+
+    }
+    const updateArchive= async (request:IRequest,token:string,propAddress:string,reqId:string):Promise<boolean>=>{
+        console.log(request.id)
+        console.log(propAddress)
+        const response:AxiosResponse= await axios.put("http://localhost:9898/updateGarbageRequest",{
+                comment:request.comment,
+                startingDate:request.startingDate,
+                deadlineDate:request.deadlineDate,
+                workerEmail:request.workerEmail,
+                archived:!request.archived,
+                accepted:request.accepted,
+                freeAgent:request.freeAgent
+            }, {
+                headers: {
+                    token,
+                    propAddress,
+                    reqId,
+                }
+            }
+        )
+        console.log(response)
+        const res:IResponse=response.data;
+        if(res.res==='success'){
+            console.log(res.properties)
+            setProperties(res.properties);
+            return true;
+        }
+        else return false;
+    }
+
+    useEffect(() => {
+        if(property&&reqId) setRequest(property.workRequests.filter(req => req.id === reqId)[0]);
+    }, [property,reqId]);
+   
+    const getRequest=(propAddress:string,reqId:string, properties:IProperty[])=>{
+        setReqId(reqId)
+        setProperty(properties.filter(prop=>prop.address===propAddress)[0]);
+
+    }
+    const acceptRequest=async (request:IRequest,token:IToken,propAddress:string,email:string)=>{
+        console.log(request.id)
+        const response:AxiosResponse=await axios.put("http://localhost:9898/acceptGarbageRequest",{
+            id:request.id,
+            comment:request.comment,
+            startingDate:request.startingDate,
+            deadlineDate:request.deadlineDate,
+            workerEmail:request.workerEmail,
+            archived:request.archived,
+            accepted:!request.accepted,
+            freeAgent:request.freeAgent
+        },{
+            headers:{
+                token:token.token,
+                address:propAddress,
+                email:email,
+                reqId:request.id
+            }
+        })
+        console.log(response)
+    }
+
     return(
-        <RequestContext.Provider value={{addRequest}}>
+        <RequestContext.Provider value={{request ,addRequest,deleteRequest,getRequest,updateArchive,acceptRequest}}>
             {children}
         </RequestContext.Provider>
     )

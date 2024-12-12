@@ -7,6 +7,7 @@ import { useMyContext } from '../Contexts/TokenContext';
 import { useMyAlertContext } from '../Contexts/AlertContext';
 import Alert from '../Alerts/Alert';
 import { useNavigate } from 'react-router-dom';
+import { clearSessionStorage } from '../Contexts/LocalStorage.';
 function App() {
     
     const [email,setEmail] = useState<string>("");
@@ -16,6 +17,9 @@ function App() {
     const [alertText,setAlertText] = useState<string>("");
     const {alert, updateAlert} = useMyAlertContext();
     const navigate = useNavigate();
+    useEffect(() => {
+        clearSessionStorage();
+    }, []);
     const handleChange=(e:React.ChangeEvent<HTMLInputElement>,set:React.Dispatch<React.SetStateAction<any>>)=>{
         e.preventDefault();
         const sanitizedValue = e.target.value.replace(/\s/g, '');

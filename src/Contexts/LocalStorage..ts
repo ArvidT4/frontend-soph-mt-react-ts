@@ -1,4 +1,4 @@
-import {IProperty, IToken} from "../interfaces";
+import {IProperty, IToken, IUserProperties} from "../interfaces";
 
 export const getLocalStorage = <T>(key: string): T | null => {
     const value = localStorage.getItem(key);
@@ -12,10 +12,16 @@ export const setLocalStorage = (key: string, value: any): void => {
 export const removeLocalStorage = (key: string): void => {
     localStorage.removeItem(key);
 };
-
+export const clearSessionStorage=()=>{
+    sessionStorage.clear();
+}
 export const getPropertyArrayFromSessionStorage = (): IProperty[] => {
     const data = sessionStorage.getItem('properties');
     return data ? JSON.parse(data) as IProperty[] : [];
+};
+export const getUserPropertyArrayFromSessionStorage = (): IUserProperties[] => {
+    const data = sessionStorage.getItem('userPropertiesList');
+    return data ? JSON.parse(data) as IUserProperties[] : [];
 };
 export const getTokenFromSessionStorage = (): IToken|undefined => {
     const data = sessionStorage.getItem('token');

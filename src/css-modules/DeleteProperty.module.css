@@ -9,3 +9,6 @@
 .address{
     @apply text-2xl font-bold;
 }
+.info{
+    @apply mt-10
+}

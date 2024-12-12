@@ -5,21 +5,24 @@ import { MyPropertiesProvider } from "./PropertyContext";
 import { MyTokenProvider } from "./TokenContext"
 import React from 'react';
 import {MyRequestProvider} from "./RequestContext";
+import { MyUPProvider } from "./UserPropertiesContext";
 const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
 
         <MyTokenProvider>
-            <MyRequestProvider>
+            <MyUPProvider>
                 <MyHandleChangeProvider>
                     <MyInputValidationProvider>
                         <MyAlertProvider>
                             <MyPropertiesProvider>
+                                <MyRequestProvider>
                                 {children}
+                                </MyRequestProvider>
                             </MyPropertiesProvider>
                         </MyAlertProvider>
                     </MyInputValidationProvider>
                 </MyHandleChangeProvider>
-            </MyRequestProvider>
+            </MyUPProvider>
         </MyTokenProvider>
     )
 }

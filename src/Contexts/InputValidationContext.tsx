@@ -8,7 +8,12 @@ interface Inputs{
     addressError: boolean;
     cityError: boolean;
     stateError: boolean;
-    validator:(prop:IProperty,postal3:number,postal2:number)=>void
+    validator:(prop:IProperty,postal3:number,postal2:number)=>void;
+    commentReqError:boolean;
+    startingError:boolean;
+    deadlineError:boolean;
+    craftsmanError:boolean;
+    requestVaildator:(comment:string,start:Date|undefined,dead:Date|undefined,craftsman:string,freeAgent:boolean)=>void;
 }
 
 const MyContext=createContext<Inputs|undefined>(undefined)
@@ -44,8 +49,38 @@ const MyInputValidationProvider:React.FC<{children:ReactNode}>=({children})=>{
             else setStateError(false)
         }
     }
+    const [commentReqError,setCommentReqError]=useState<boolean>(false)
+    const [startingError,setStartingError]=useState<boolean>(false)
+    const [deadlineError,setDeadlineError]=useState<boolean>(false)
+    const [craftsmanError,setCraftsmanError]=useState<boolean>(false)
 
-    return <MyContext.Provider value={{ post3Class, post2Class, descError, addressError, cityError, stateError, validator }}>
+    const requestVaildator=(comment:string,start:Date|undefined,dead:Date|undefined,craftsman:string,freeAgent:boolean)=>{
+        if(comment.length<=0||comment.length>50)setCommentReqError(true)
+        else setCommentReqError(false)
+        if(start&&dead){
+            if(start>dead)setStartingError(true)
+            else setStartingError(false)
+        }else return setStartingError(true)
+        if(!freeAgent){
+            if(craftsman=="Choose craftsman")setCraftsmanError(true)
+            else setCraftsmanError(false)
+        }
+        else setCraftsmanError(false)
+    }
+
+    return <MyContext.Provider value={{
+        post3Class,
+        post2Class,
+        descError,
+        addressError,
+        cityError,
+        stateError,
+        validator,
+        commentReqError,
+        startingError,
+        deadlineError,
+        craftsmanError,
+        requestVaildator }}>
         {children}
     </MyContext.Provider>
 }

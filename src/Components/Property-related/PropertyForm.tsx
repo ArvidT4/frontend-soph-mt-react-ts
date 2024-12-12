@@ -53,7 +53,8 @@ const PropertyForm:React.FC<property>=({prop,propFunc})=>{
             postCode: postalCode,
             state: state,
             id: prop.id,
-            collectingId: ""
+            emailList:[],
+            workRequests:[],
         }
         return property
     }

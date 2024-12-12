@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.wrap{
+    @apply w-full border-t mt-4
+}
+.divWrap{
+    @apply grid grid-cols-3 gap-3 mt-2
+}
+.buttonWrap{
+    @apply border hover:bg-green-600 duration-300 text-white font-sans font-bold text-center p-1 pb-3 pt-3 bg-green-400 rounded-lg
+}
+.filterHeader{
+    @apply font-bold text-xl text-center mt-4
+}

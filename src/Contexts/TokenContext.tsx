@@ -9,6 +9,7 @@ interface TokenContext{
     token?:IToken|null
     addToken:(token:IToken) => void
     checkForEmail:(email:string)=>Promise<boolean>
+    checkToken:()=>Promise<boolean>
 }
 
 const MyContext = createContext<TokenContext|undefined>(undefined)
@@ -34,6 +35,24 @@ const MyTokenProvider: React.FC<{children:ReactNode}> = ({children})=>{
             sessionStorage.removeItem('properties');
         }
     }, [token]);
+    const checkToken  =async ():Promise<boolean>=>{
+        try{
+            if(token){
+                const response:AxiosResponse=await axios.get("http://localhost:9898/checkToken",{
+                    params:{
+                        token:token.token
+                    }
+                })
+                return response.data;
+            }
+            return true;
+        }
+       catch (err){
+            console.log(err)
+           return true;
+       }
+
+    }
     const addToken=(token:IToken)=>{
 
 
@@ -54,7 +73,7 @@ const MyTokenProvider: React.FC<{children:ReactNode}> = ({children})=>{
 
 
     return (
-        <MyContext.Provider value={{token,addToken,checkForEmail}}>
+        <MyContext.Provider value={{token,addToken,checkForEmail,checkToken}}>
             {children}
         </MyContext.Provider>
     )

@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.wrap{
+    @apply border max-h-40 rounded-b-lg opacity-100 transition-all
+}
+.unWrap{
+    @apply opacity-0 max-h-0 overflow-hidden transition-all
+}
+.arrowDropped{
+    @apply rotate-0 w-10 transition-all
+}
+
+.hoveredCraftsman{
+    @apply border-b p-3 hover:text-xl hover:text-gray-500 transition-all
+}
+.dropDownDiv{
+    @apply border p-2 rounded-lg bg-gray-200 grid grid-cols-6 transition-all
+}
+.dropDownShown{
+    @apply rounded-t-lg border p-2 bg-gray-200 grid grid-cols-6 transition-all
+}
+.arrow{
+    @apply w-10 rotate-90 transition-all
+}
+.arrowDiv{
+    @apply  col-start-6 col-end-6 m-auto
+}
+.craftEmail{
+    @apply m-auto font-bold col-start-1 col-end-5 ml-2
+}
+.craftBoiler{
+    @apply m-auto col-start-1 col-end-5 ml-2
+}

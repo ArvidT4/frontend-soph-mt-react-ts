@@ -3,7 +3,7 @@ import DeleteButton from "./DeleteButton"
 import EditButton from "./EditButton"
 import css from "../../css-modules/Menu.module.css"
 import AddCraftsman from "./AddCraftsman"
-import addButton from "../../images/trashCan.png"
+import addButton from "../../images/add.png"
 
 import AddRequest from "./AddRequest"
 interface MenuProps{
