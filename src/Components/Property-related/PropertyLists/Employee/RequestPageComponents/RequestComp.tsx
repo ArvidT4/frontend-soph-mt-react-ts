@@ -12,10 +12,11 @@ interface RequestProps{
 const RequestComp:React.FC<RequestProps>=({request,propAddress,email})=>{
     return(
         <div className={styles.reqWrap}>
-            <div className={styles.attrWrap}><span className={styles.attrTitle}>Comment: </span>  {request.comment} {request.id}</div>
+            <div className={styles.attrWrap}><span className={styles.attrTitle}>Comment: </span>  {request.comment}</div>
             <BoolWrap request={request}/>
             <DateComp starting={request.startingDate} deadline={request.deadlineDate}></DateComp>
-            <RequestButtons email={email} propAddress={propAddress} request={request}/>
+            {!request.finished&&<RequestButtons email={email} propAddress={propAddress} request={request}/>}
+
         </div>
     )
 }

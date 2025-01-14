@@ -1,7 +1,8 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";
-import {IProperty, IRequest, IResponse, IToken} from "../interfaces";
+import {IProperty, IRequest, IResponse, IResponseUP, IToken} from "../interfaces";
 import { useMyPropertiesContext } from "./PropertyContext";
+import { useMyUPContext } from "./UserPropertiesContext";
 
 
 interface RequestInterface{
@@ -10,7 +11,7 @@ interface RequestInterface{
     deleteRequest:(token:string,reqId:string,propAddress:string)=>Promise<boolean>,
     getRequest:(propAddress:string,reqId:string, properties:IProperty[])=>void
     updateArchive:(request:IRequest,token:string,propAddress:string,reqId:string)=>Promise<boolean>,
-    acceptRequest:(request:IRequest,token:IToken,propAddress:string,email:string)=>void,
+    updateReqFromEmployee:(request:IRequest,token:IToken,propAddress:string,email:string)=>void,
 }
 
 
@@ -63,7 +64,7 @@ const MyRequestProvider:React.FC<{ children: ReactNode }>=({children})=>{
     const updateArchive= async (request:IRequest,token:string,propAddress:string,reqId:string):Promise<boolean>=>{
         console.log(request.id)
         console.log(propAddress)
-        const response:AxiosResponse= await axios.put("http://localhost:9898/updateGarbageRequest",{
+        const response:AxiosResponse= await axios.put("http://localhost:9898/updateGarbageRequestFromCustomer",{
                 comment:request.comment,
                 startingDate:request.startingDate,
                 deadlineDate:request.deadlineDate,
@@ -98,16 +99,18 @@ const MyRequestProvider:React.FC<{ children: ReactNode }>=({children})=>{
         setProperty(properties.filter(prop=>prop.address===propAddress)[0]);
 
     }
-    const acceptRequest=async (request:IRequest,token:IToken,propAddress:string,email:string)=>{
-        console.log(request.id)
-        const response:AxiosResponse=await axios.put("http://localhost:9898/acceptGarbageRequest",{
+    const {setUserPropertiesList}=useMyUPContext();
+    const updateReqFromEmployee=async (request:IRequest,token:IToken,propAddress:string,email:string)=>{
+        console.log(request.finished)
+        const response:AxiosResponse=await axios.put("http://localhost:9898/updateGarbageRequestFromEmployee",{
             id:request.id,
             comment:request.comment,
             startingDate:request.startingDate,
             deadlineDate:request.deadlineDate,
             workerEmail:request.workerEmail,
             archived:request.archived,
-            accepted:!request.accepted,
+            accepted:request.accepted,
+            finished:request.finished,
             freeAgent:request.freeAgent
         },{
             headers:{
@@ -118,10 +121,15 @@ const MyRequestProvider:React.FC<{ children: ReactNode }>=({children})=>{
             }
         })
         console.log(response)
+        const res:IResponseUP=response.data;
+        if(res.res=="success"){
+            console.log("heheh")
+            setUserPropertiesList(res.userProperties)
+        }
     }
 
     return(
-        <RequestContext.Provider value={{request ,addRequest,deleteRequest,getRequest,updateArchive,acceptRequest}}>
+        <RequestContext.Provider value={{request ,addRequest,deleteRequest,getRequest,updateArchive,updateReqFromEmployee}}>
             {children}
         </RequestContext.Provider>
     )

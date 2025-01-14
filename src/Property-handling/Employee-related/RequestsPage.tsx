@@ -10,6 +10,7 @@ const RequestsPage=()=>{
     const {propAddress,email}=useParams();
     const {getProperty,userPropertiesList}=useMyUPContext();
     const [property,setProperty]=useState<IProperty>();
+    
     useEffect(() => {
         if(propAddress&&email&&userPropertiesList)setProperty(getProperty(propAddress,email))
     }, [propAddress,email,userPropertiesList]);

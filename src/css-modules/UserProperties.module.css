@@ -6,7 +6,7 @@
     @apply border m-3 rounded-lg
 }
 .emailWrap{
-    @apply p-6 rounded-t-lg bg-gradient-to-t from-green-400 to-green-300  cursor-pointer
+    @apply p-4 rounded-t-lg bg-gradient-to-r from-green-400 to-green-500  cursor-pointer
 }
 .emailText{
     @apply text-2xl text-white font-bold

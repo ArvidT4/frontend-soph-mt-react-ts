@@ -6,7 +6,8 @@ import axios, { AxiosResponse } from "axios";
 interface UPContext{
     userPropertiesList:IUserProperties[]|undefined;
     getPropertiesForEmployee:(token:IToken)=>void;
-    getProperty:(propAddress:string,email:string)=>IProperty|undefined
+    getProperty:(propAddress:string,email:string)=>IProperty|undefined;
+    setUserPropertiesList:React.Dispatch<React.SetStateAction<any>>
 }
 const uPContext=createContext<UPContext|undefined>(undefined);
 
@@ -47,7 +48,7 @@ const MyUPProvider: React.FC<{children:ReactNode}> = ({children})=>{
     }
 
     return (
-        <uPContext.Provider value={{userPropertiesList,getPropertiesForEmployee,getProperty}}>
+        <uPContext.Provider value={{userPropertiesList,getPropertiesForEmployee,getProperty,setUserPropertiesList}}>
             {children}
         </uPContext.Provider>
     )

@@ -17,7 +17,7 @@ const FilterRequests:React.FC<FilterProps>=({requests,setRequests})=>{
     useEffect(() => {
 
         if(filterReqs){
-            console.log(requests)
+            console.log(filterReqs)
             if(filterState===UNFINISHED)setRequests(filterReqs.filter(req=>!req.finished&&!req.archived))
             else if(filterState===FINISHED)setRequests(filterReqs.filter(req=>req.finished&&!req.archived))
             else if(filterState===ARCHIVED)setRequests(filterReqs.filter(req=>req.archived))

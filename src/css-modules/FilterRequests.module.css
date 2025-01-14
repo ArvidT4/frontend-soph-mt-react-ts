@@ -6,6 +6,9 @@
 .wrap{
     @apply w-full border-t mt-4
 }
+.wrapEmp{
+    @apply w-full mt-4
+}
 .divWrap{
     @apply grid grid-cols-3 gap-3 mt-2
 }

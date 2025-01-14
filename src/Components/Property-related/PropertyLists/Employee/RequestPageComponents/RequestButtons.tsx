@@ -10,19 +10,32 @@ interface ButtonProps{
     email:string;
 }
 const RequestButtons:React.FC<ButtonProps>=({request,propAddress,email})=>{
-    const {acceptRequest}=useMyRequestContext();
+    const {updateReqFromEmployee}=useMyRequestContext();
     const {token}=useMyContext();
-    const finishRequest=()=>{
+    const updateReqFinished=()=>{
+        console.log(request)
+        request.finished=!request.finished;
+        if(token&&propAddress&&request)updateReqFromEmployee(request,token,propAddress,email);
 
     }
-    const acceptReq=()=>{
-        if(token&&propAddress)acceptRequest(request,token,propAddress,email);
+    const updateReqAccepted=()=>{
+        console.log(request)
+
+        if(!request.accepted){
+            request.freeAgent=false;
+        }
+        else request.freeAgent=true;
+        request.accepted=!request.accepted;
+        if(token&&propAddress&&request)updateReqFromEmployee(request,token,propAddress,email);
 
     }
     return(
         <div className={styles.buttonWrap}>
-            {request.accepted ?<ReqButton reqFunction={()=>console.log("ss")} title={"Finish request"}/>
-                : <ReqButton reqFunction={acceptReq} title={"Accept request"}/>
+            {request.accepted ?<div className={styles.finishedButtonWrap}>
+                    <ReqButton reqFunction={updateReqFinished} title={"Finish request"}/>
+                    <ReqButton reqFunction={updateReqAccepted} title={"Reject request"}/>
+                </div>
+                : <ReqButton reqFunction={updateReqAccepted} title={"Accept request"}/>
             }
         </div>
 

@@ -42,3 +42,7 @@ export interface IResponse{
     res:string;
     properties:IProperty[];
 }
+export interface IResponseUP{
+    res:string;
+    userProperties:IUserProperties[];
+}
