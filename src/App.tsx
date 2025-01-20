@@ -14,6 +14,7 @@ import AddRequest from './Property-handling/Requests/AddRequest';
 import DeleteRequest from './Property-handling/Requests/DeleteRequest';
 import ArchivePage from './Property-handling/Requests/ArchivePage';
 import RequestsPage from './Property-handling/Employee-related/RequestsPage';
+import ActivateEmployee from "./user-related/super/ActivateEmployee";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                 <Route path={"/Properties/:propAddress/:reqId/DeleteRequest"} element={<DeleteRequest/>}/>
                 <Route path={"/Properties/:propAddress/:reqId/ArchiveRequest"} element={<ArchivePage/>}/>
                 <Route path={"/:email/:propAddress/Requests"} element={<RequestsPage/>}/>
+                <Route path={"/adminActivateEmp"}  element={<ActivateEmployee/>}/>
             </Routes>
       </Router>
       </div>

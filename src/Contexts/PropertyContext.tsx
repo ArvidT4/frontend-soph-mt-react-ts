@@ -104,7 +104,7 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
             return false
         }
         catch(error){
-            console.log("ERROR"  + error)
+            console.log("error"  + error)
             return false
         }
 

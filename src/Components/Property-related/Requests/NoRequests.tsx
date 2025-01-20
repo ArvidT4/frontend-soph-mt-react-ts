@@ -10,7 +10,7 @@ const NoRequests:React.FC<NoReqProps>=({propAddress})=>{
         <div className={styles.noReqWrap}>
             <div className={styles.noRequests}>
                 No requests created at the moment.
-                <AddRequest propAddress={propAddress} image={img}></AddRequest>
+                <AddRequest propAddress={propAddress} image={"img"}></AddRequest>
             </div>
         </div>
     )

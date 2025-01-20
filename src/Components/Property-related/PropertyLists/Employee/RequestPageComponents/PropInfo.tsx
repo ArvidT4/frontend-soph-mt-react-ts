@@ -12,7 +12,7 @@ const PropInfo:React.FC<PropProps>=({property})=>{
         <div className={styles.infoWrap}>
             <div className={styles.styleWrap}>
                     <div className={styles.imgWrap}>
-                        <img onClick={()=>navigate(-1)} className={styles.img} src={arrow}/>
+                        <img onClick={()=>navigate(-1)} className={styles.img} src={"arrow"}/>
                     </div>
                     <div className={styles.title}>Property info</div>
 

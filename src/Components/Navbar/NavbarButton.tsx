@@ -1,38 +1,51 @@
 import burger from "../../images/burgerMenu.png"
 import styles from "../../css-modules/Navbar.module.css"
-import {useEffect, useState } from "react"
+import React, {useEffect, useReducer, useRef, useState} from "react"
 import { useMyNavbarContext } from "../../Contexts/NavbarContext"
+import {
+    burgerReducer,
+    CLICKED,
+    DUR_CLICKED, INITIAL_STATE,
+    UN_CLICKED,
+} from "../../reducer/burgerReducer";
 
 const NavbarButton=()=>{
-    const [wrapClass,setWrapClass] = useState<string>(styles.imgWrap)
-    const [burgerTop,setburgerTop] = useState(styles.burgerLine)
-    const [burgerCenter,setBurgerCenter] = useState(styles.burgerLine)
-    const [burgerBot,setBurgerBot] = useState(styles.burgerLine)
-    
+    const [state,dispatch]=useReducer(burgerReducer,INITIAL_STATE);
     const {clicked,setClicked}=useMyNavbarContext();
     const buttonClicked=()=>{
 
-        setClicked(!clicked)
-
+        setClicked((prev:boolean) => !prev)
     }
+    const firstUpdate=useRef(true);
     useEffect(() => {
-        if(clicked){
-            setWrapClass(styles.imgWrapClicked)
-            setburgerTop(styles.burgerLineClickedTop)
-            setBurgerCenter(styles.burgerLineClickedCenter)
-            setBurgerBot(styles.burgerLineClickedBot)
-        }else{
-            setWrapClass(styles.imgWrap)
-            setburgerTop(styles.burgerLine)
-            setBurgerCenter(styles.burgerLine)
-            setBurgerBot(styles.burgerLine)
+        console.log("1")
+        if(firstUpdate.current){
+            console.log("3")
+            firstUpdate.current=false;
+            return;
         }
+        console.log("2")
+        if(clicked){
+            dispatch({type:CLICKED})
+            setTimeout(()=>{
+                dispatch({type:DUR_CLICKED})
+            },300)
+
+        }else{
+            dispatch({type:CLICKED})
+            setTimeout(()=>{
+                dispatch({type:UN_CLICKED})
+            },300)
+        }
+
     }, [clicked]);
+
+
     return(
-        <div onClick={buttonClicked} className={wrapClass}>
-            <div className={burgerTop}></div>
-            <div className={burgerCenter}></div>
-            <div className={burgerBot}></div>
+        <div onClick={buttonClicked} className={styles.lineWrap}>
+            <div className={styles[state.top]}></div>
+            <div className={styles[state.center]}></div>
+            <div className={styles[state.bot]}></div>
         </div>
     )
 }

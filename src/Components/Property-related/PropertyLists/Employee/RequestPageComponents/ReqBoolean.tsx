@@ -11,7 +11,7 @@ const ReqBoolean:React.FC<ReqProps>=({bool,title})=>{
     return(
         <div className={styles.booleanWrap}>
             <span className={styles.attrTitle}>{title}: </span>
-            {bool? <div><img className={styles.boolImg} src={check}/></div> : <div><img className={styles.boolImg} src={x}/></div>}
+            {bool? <div><img className={styles.boolImg} src={"check"}/></div> : <div><img className={styles.boolImg} src={"x"}/></div>}
         </div>
     )
 }

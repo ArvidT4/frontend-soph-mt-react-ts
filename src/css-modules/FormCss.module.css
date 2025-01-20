@@ -36,3 +36,15 @@
 .errorText{
     @apply text-red-500 drop-shadow
 }
+.freeAgentWrap{
+    @apply flex gap-2
+}
+.archiveWrap{
+    @apply flex place-self-end gap-2
+}
+.toggleSpan{
+    @apply text-center
+}
+.togglesWrap{
+    @apply grid grid-cols-2 w-80 m-auto
+}

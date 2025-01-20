@@ -42,7 +42,8 @@ function App() {
                 setAlertText("Your password or email is incorrect")
             } else {
                 addToken(resData);
-                navigate("/Properties")
+                if(resData.role==="superAdmin") navigate("/adminActivateEmp")
+                else navigate("/Properties")
             }
 
         }

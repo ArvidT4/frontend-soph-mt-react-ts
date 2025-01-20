@@ -2,6 +2,7 @@ import {useEffect, useState } from "react";
 import { useMyNavbarContext } from "../../Contexts/NavbarContext";
 import styles from "../../css-modules/Navbar.module.css"
 import { useMyContext } from "../../Contexts/TokenContext";
+import LogoutButton from "./LogoutButton";
 
 const NavbarContent:React.FC=()=>{
     const {clicked,setClicked}=useMyNavbarContext();
@@ -25,7 +26,7 @@ const NavbarContent:React.FC=()=>{
                     <li className={styles.divider}></li>
                     <li className={styles.liItemRight}>
                         <div className={styles.aHolder}>
-                            <a href={"/login"}>Log out</a>
+                            <LogoutButton/>
                         </div>
                     </li>
                 </ul>

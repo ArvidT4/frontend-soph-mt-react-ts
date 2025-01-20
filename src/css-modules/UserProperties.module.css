@@ -18,7 +18,7 @@
     @apply font-bold text-xl
 }
 .userPropWrap{
-    @apply border grid grid-cols-2 p-3 rounded-lg
+    @apply border grid grid-cols-2 p-3 rounded-lg mb-3
 }
 .propTitles{
     @apply font-bold

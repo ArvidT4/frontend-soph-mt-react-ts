@@ -13,7 +13,7 @@ const MenuButton:React.FC<props>=({setShow,show})=>{
     }
     return(
         <div className={css.menuButtonWrap} onClick={pressed}>
-            <img className={css.menuButton} src={menuButton}/>
+            <img className={css.menuButton} src={"menuButton"}/>
         </div>
     )
 }

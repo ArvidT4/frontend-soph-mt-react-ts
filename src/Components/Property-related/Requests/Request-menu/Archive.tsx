@@ -13,7 +13,7 @@ const Archive:React.FC<ArchiveProps>=({address,reqId})=>{
     }
     return(
         <div className={styles.archiveWrap} onClick={archiveRequest}>
-            <img className={styles.imgArchive} src={archive}/>
+            <img className={styles.imgArchive} src={"archive"}/>
         </div>
     )
 }

@@ -31,7 +31,6 @@ const UserProp:React.FC<UserProperty>=({property,email})=>{
                     <span>There are <span className={styles.reqLength}>{property.workRequests.length}</span> job request[s].</span>
                 </div>
             }
-
         </div>
     )
 }

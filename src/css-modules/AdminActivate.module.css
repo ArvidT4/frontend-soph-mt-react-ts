@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.emailInput{
+    @apply border p-3 w-full rounded-md shadow-lg
+}
+.wrap{
+    @apply p-3
+}
+.title{
+    @apply font-bold text-xl mt-5
+}
+.button{
+    @apply w-full bg-green-500 p-2 text-white font-bold mt-3 rounded-md text-lg hover:bg-green-300
+}

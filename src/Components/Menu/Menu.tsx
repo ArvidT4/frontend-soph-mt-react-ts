@@ -15,8 +15,10 @@ const Menu:React.FC<MenuProps>=({prop})=>{
         <div className={css.menuWrap}>
             <EditButton prop={prop}></EditButton>
             <DeleteButton address={prop.address}></DeleteButton>
-            <AddCraftsman propId={prop.id} image={addButton}></AddCraftsman>
-            <AddRequest image={addButton} propAddress={prop.address}></AddRequest>
+            {/*<AddCraftsman propId={prop.id} image={addButton}></AddCraftsman>
+            <AddRequest image={addButton} propAddress={prop.address}></AddRequest>*/}
+            <AddCraftsman propId={prop.id} image={"addButton"}></AddCraftsman>
+            <AddRequest image={"addButton"} propAddress={prop.address}></AddRequest>*
         </div>
     )
 }

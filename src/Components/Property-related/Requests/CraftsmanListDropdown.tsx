@@ -23,7 +23,7 @@ const CraftsmanListDropdown:React.FC<CraftsmanProps>=({workerEmail,setWorkerEmai
                     {workerEmail}
                 </div>
                 <div className={styles.arrowDiv}>
-                    <img src={arrow} className={drop? styles.arrowDropped:styles.arrow}/>
+                    <img src={"arrow"} className={drop? styles.arrowDropped:styles.arrow}/>
                 </div>
             </div>
             <DropDownContent drop={drop} setDrop={setDrop} setWorkerEmail={setWorkerEmail} address={address}/>

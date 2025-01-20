@@ -10,6 +10,9 @@ interface TokenContext{
     addToken:(token:IToken) => void
     checkForEmail:(email:string)=>Promise<boolean>
     checkToken:()=>Promise<boolean>
+    checkAdmin:()=>Promise<boolean>
+    logout:()=>Promise<boolean>
+    RegisterEmployeeFromAdmin:(email:string)=>Promise<boolean>
 }
 
 const MyContext = createContext<TokenContext|undefined>(undefined)
@@ -53,6 +56,24 @@ const MyTokenProvider: React.FC<{children:ReactNode}> = ({children})=>{
        }
 
     }
+    const checkAdmin=async ():Promise<boolean>=>{
+        try{
+            if(token){
+                const response:AxiosResponse=await axios.get("http://localhost:9898/checkAdmin",{
+                    params:{
+                        token:token.token
+                    }
+                })
+                return response.data;
+            }
+            return false;
+        }
+        catch (err){
+            console.log(err)
+            return false;
+        }
+
+    }
     const addToken=(token:IToken)=>{
 
 
@@ -60,6 +81,14 @@ const MyTokenProvider: React.FC<{children:ReactNode}> = ({children})=>{
         console.log(token);
     }
 
+    const logout=async():Promise<boolean>=>{
+        if(!token) return false
+        const reponse:AxiosResponse=await axios.delete("http://localhost:9898/logout", {headers:{
+                token:token.token
+            }})
+        console.log(reponse)
+        return true
+    }
     const checkForEmail= async(email:string):Promise<boolean>=>{
         const response: AxiosResponse = await axios.get("http://localhost:9898/checkInactiveEmployee", {
             params:{
@@ -70,10 +99,34 @@ const MyTokenProvider: React.FC<{children:ReactNode}> = ({children})=>{
 
         else return false;
     }
+    const RegisterEmployeeFromAdmin = async (email:string):Promise<boolean>=>{
+
+        try{
+            if(token){
+                console.log(email);
+                const response:AxiosResponse= await axios.post("http://localhost:9898/registerEmployee",
+                    {},
+                    {
+                        headers:{
+                            email:email,
+                            token:token.token,
+                        }
+                    });
+                console.log(response)
+                return response.data;
+            }
+            return false;
+
+        }
+        catch (err){
+            console.log(err)
+            return false;
+        }
+    }
 
 
     return (
-        <MyContext.Provider value={{token,addToken,checkForEmail,checkToken}}>
+        <MyContext.Provider value={{token,addToken,checkForEmail,checkToken,logout,checkAdmin,RegisterEmployeeFromAdmin}}>
             {children}
         </MyContext.Provider>
     )

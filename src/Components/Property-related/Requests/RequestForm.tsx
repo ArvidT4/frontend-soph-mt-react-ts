@@ -37,12 +37,12 @@ const RequestForm:React.FC<RequestProps>=({address})=>{
         }
     }, []);
     useEffect(() => {
+        console.log(freeAgent);
         requestVaildator(comment,startingDate,deadlineDate,workerEmail,freeAgent)
     }, [comment,startingDate,deadlineDate,workerEmail,freeAgent]);
     const {
         commentReqError,
         startingError,
-        deadlineError,
         craftsmanError,
         requestVaildator}=useMyInputValidationContext();
     const add= async ()=>{
@@ -100,16 +100,23 @@ const RequestForm:React.FC<RequestProps>=({address})=>{
 
             </div>
             <div className={styles.inputWrap}>
-                <ToggleSwitch checked={freeAgent} label="Free agent" onChange={setFreeAgent}/>
+                <div className={styles.togglesWrap}>
+                    <div className={styles.freeAgentWrap}>
+                        <span className={styles.toggleSpan}>Free agent</span>
+                        <ToggleSwitch checked={freeAgent} onChange={()=>setFreeAgent(prevState => !prevState)}/>
+                    </div>
+                    <div className={styles.archiveWrap}>
+                        <span className={styles.toggleSpan}>Archive</span>
+                        <ToggleSwitch checked={archived} onChange={()=>setArchived(prevState => !prevState)}/>
+                    </div>
+                </div>
+
             </div>
             {!freeAgent && <div className={styles.inputWrap}>
                 <span className={styles.inputTitle}>Craftsman:</span>
                 {render&&<CraftsmanListDropdown address={address} workerEmail={workerEmail} setWorkerEmail={setWorkerEmail}></CraftsmanListDropdown>}
                 <ErrorText show={craftsmanError} msg={"Choose craftsman or turn on Free agent"}/>
             </div>}
-            <div className={styles.inputWrap}>
-                <ToggleSwitch checked={archived} label="Archived" onChange={setArchived}/>
-            </div>
             {alert && <Alert alertMsg={alertMsg} error={true}></Alert>}
 
             <PerformOrCancelButtons propFunc={add}></PerformOrCancelButtons>

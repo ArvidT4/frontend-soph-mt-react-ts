@@ -23,25 +23,31 @@ const MyRequestProvider:React.FC<{ children: ReactNode }>=({children})=>{
     const [request,setRequest]=useState<IRequest|undefined>();
     const [reqId,setReqId]=useState<string>("");
     const addRequest= async (request:IRequest,token:string,address:string,workerEmail:string):Promise<boolean>=>{
-
-        const response:AxiosResponse=await axios.post("http://localhost:9898/createGarbageRequest",{
-            id:"",
-            comment:request.comment,
-            startingDate:request.startingDate,
-            deadlineDate:request.deadlineDate,
-            workerEmail:request.workerEmail,
-            archived:request.archived,
-            accepted:request.accepted,
-            freeAgent:request.freeAgent
-        }, {
-                headers: {
-                    token,
-                    address,
-                    workerEmail,
+        try{
+            const response:AxiosResponse=await axios.post("http://localhost:9898/createGarbageRequest",{
+                    id:"",
+                    comment:request.comment,
+                    startingDate:request.startingDate,
+                    deadlineDate:request.deadlineDate,
+                    workerEmail:request.workerEmail,
+                    archived:request.archived,
+                    accepted:request.accepted,
+                    freeAgent:request.freeAgent
+                }, {
+                    headers: {
+                        token,
+                        address,
+                        workerEmail,
+                    }
                 }
-            }
-        )
-        return true;
+            )
+            return true;
+        }
+        catch(err){
+            console.log(err);
+            return false;
+        }
+
     }
 
     const deleteRequest= async (token:string,reqId:string,propAddress:string):Promise<boolean>=>{
