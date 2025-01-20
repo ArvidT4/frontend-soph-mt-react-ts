@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import RegisterCustomer from './user-related/RegisterCustomer';
 import Login from "./user-related/Login";
-import Homepage from "./Homepage/Homepage";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import PropertyPage from './Property-handling/PropertyPage';
 import AddProperty from './Property-handling/AddProperty';
@@ -15,18 +14,19 @@ import DeleteRequest from './Property-handling/Requests/DeleteRequest';
 import ArchivePage from './Property-handling/Requests/ArchivePage';
 import RequestsPage from './Property-handling/Employee-related/RequestsPage';
 import ActivateEmployee from "./user-related/super/ActivateEmployee";
+import PathError from "./LinkError/PathError";
 
 function App() {
   return (
       <div className={"app-wrap"}>
       <Router>
             <Routes>
-                <Route path={"/"} element={<Homepage/>}/>
+                <Route path={"/"} element={<Login/>}/>
                 <Route path={"/registerCustomer"} element={<RegisterCustomer/>}/>
                 <Route path={"/registerEmployee"} element={<RegisterEmployee/>}/>
                 <Route path={"/login"} element={<Login/>}/>
                 <Route path={"/Properties"} element={<PropertyPage/>}></Route>
-                <Route path={"*"} element={<Homepage/>}></Route>
+                <Route path={"*"} element={<PathError/>}></Route>
                 <Route path={"/addProperty"} element={<AddProperty></AddProperty>}/>
                 <Route path={"/editProperty/:propAddress"} element={<EditProperty/>}></Route>
                 <Route path={("/Properties/:propId/addCraftsman")} element={<AddCraftsman/>}></Route>

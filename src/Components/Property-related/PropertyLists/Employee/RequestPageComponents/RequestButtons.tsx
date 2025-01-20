@@ -26,6 +26,7 @@ const RequestButtons:React.FC<ButtonProps>=({request,propAddress,email})=>{
         }
         else request.freeAgent=true;
         request.accepted=!request.accepted;
+
         if(token&&propAddress&&request)updateReqFromEmployee(request,token,propAddress,email);
 
     }

@@ -92,6 +92,10 @@ function App() {
                         <label>Already got an account? <a className={styles.redirect} href={"/login"}>Sign in
                             here!</a></label>
                     </div>
+                    <div className={styles.inputHolder + " " + styles.signIn}>
+                        <label>Sign up with email for the first time as employee? <a className={styles.redirect} href={"/registerEmployee"}>Sign in
+                            here!</a></label>
+                    </div>
                     <div className={styles.inputHolder}>
                         <button onClick={register} className={styles.button}>Sign up</button>
                     </div>
