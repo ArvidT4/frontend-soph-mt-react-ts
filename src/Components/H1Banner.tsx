@@ -1,4 +1,3 @@
-import { useMyNavbarContext } from '../Contexts/NavbarContext';
 import styles from '../css-modules/H1Banner.module.css';
 import Navbar from './Navbar/Navbar';
 import NavbarContent from './Navbar/NavbarContent';
@@ -7,7 +6,6 @@ interface props{
 }
 
 const H1Banner:React.FC<props>=({header}:props)=>{
-    const {clicked}=useMyNavbarContext();
     return (
         <div>
             <div className={styles.wrap}>

@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.reqWrap{
+    @apply border m-3 rounded-md shadow-md
+}
+.comment{
+    @apply text-center text-xl border-b p-2 bg-green-500 rounded-t-md text-white
+}
+.spanHolder{
+    @apply font-bold
+}
+.navButtonHolder{
+    @apply p-3
+}
+.navButton{
+    @apply w-full bg-green-500 rounded-md p-2 text-white font-bold
+}

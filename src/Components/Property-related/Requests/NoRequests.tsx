@@ -1,6 +1,5 @@
 import styles from "../../../css-modules/RequestFeed.module.css"
 import AddRequest from "../../Menu/AddRequest"
-import img from "../../../images/add.png"
 interface NoReqProps{
     propAddress:string,
 }

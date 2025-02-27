@@ -1,7 +1,6 @@
 import {useNavigate, useParams } from "react-router-dom";
 import H1Banner from "../../Components/H1Banner"
 import styles from "../../css-modules/DeleteProperty.module.css"
-import { useMyAlertContext } from "../../Contexts/AlertContext";
 import { useMyPropertiesContext } from "../../Contexts/PropertyContext";
 import { useMyContext } from "../../Contexts/TokenContext";
 import { useEffect, useState } from "react";
@@ -12,7 +11,6 @@ const ArchivePage=()=>{
     const {reqId,propAddress}=useParams();
     const [render,setRender]=useState<boolean>(false);
     const {getRequest,request,updateArchive} = useMyRequestContext();
-    const {updateAlert}=useMyAlertContext();
     const {properties}=useMyPropertiesContext();
     const navigate=useNavigate();
     const {token} = useMyContext();

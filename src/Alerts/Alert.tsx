@@ -9,7 +9,7 @@ interface IAlerts {
 
 
 const Alert = ({alertMsg,error}: IAlerts) => {
-    const {alert, updateAlert} = useMyAlertContext();
+    const { updateAlert} = useMyAlertContext();
     const exitButton =():void=>{
 
         updateAlert(false);

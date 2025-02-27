@@ -1,13 +1,12 @@
-import {useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import H1Banner from "../Components/H1Banner"
 import { IProperty } from "../interfaces"
 import { useMyPropertiesContext } from "../Contexts/PropertyContext";
-import {ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EditForm from "../Components/Property-related/PropertyForm";
 
 const EditProperty=()=>{
     const {propAddress}=useParams();
-    const navigate = useNavigate()
     const {properties,getProperty,editProperty}=useMyPropertiesContext();
 
     const [property,setProperty]=useState<IProperty>()
@@ -17,7 +16,6 @@ const EditProperty=()=>{
             const prop:IProperty|undefined=getProperty(propAddress)
 
             if(prop){
-                console.log(prop)
                 setProperty(prop)
             }
 

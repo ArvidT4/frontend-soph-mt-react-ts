@@ -17,8 +17,6 @@ const DeleteProperty=()=>{
                 if(success){
                     navigate("/properties")
                 }
-                else console.log("wtf happened")
-                console.log("test")
             }
         } catch (error) {
             console.log("test")

@@ -12,13 +12,10 @@ interface ContentProps{
 const DropDownContent:React.FC<ContentProps>=({drop,address,setWorkerEmail,setDrop})=>{
     const {getProperty}=useMyPropertiesContext();
     const [property,setProperty]=useState<IProperty>();
-    const {propAddress}=useParams();
     useEffect(() => {
-        console.log("fer");
 
         if(address){
             setProperty(getProperty(address));
-            console.log(property);
         }
     }, [address]);
     const chooseWorker=(email:string)=>{

@@ -13,13 +13,11 @@ const RequestButtons:React.FC<ButtonProps>=({request,propAddress,email})=>{
     const {updateReqFromEmployee}=useMyRequestContext();
     const {token}=useMyContext();
     const updateReqFinished=()=>{
-        console.log(request)
         request.finished=!request.finished;
         if(token&&propAddress&&request)updateReqFromEmployee(request,token,propAddress,email);
 
     }
     const updateReqAccepted=()=>{
-        console.log(request)
 
         if(!request.accepted){
             request.freeAgent=false;

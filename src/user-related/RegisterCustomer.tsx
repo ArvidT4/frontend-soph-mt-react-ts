@@ -1,9 +1,7 @@
-import React, {useState, MouseEvent, SyntheticEvent} from 'react';
+import React, {useState} from 'react';
 import styles from "../css-modules/UserLoginRegister.module.css"
-import * as events from "events";
-import {IToken, IUser } from '../interfaces';
+import { IUser } from '../interfaces';
 import axios, { AxiosResponse } from 'axios';
-import { useMyContext } from '../Contexts/TokenContext';
 import { useMyAlertContext } from '../Contexts/AlertContext';
 import Alert from '../Alerts/Alert';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +11,6 @@ function App() {
 
     const [email,setEmail] = useState<string>("");
     const [password,setPassword] = useState<string>("");
-    const {addToken} = useMyContext();
     const [inputError, setInputError] = useState<string>("");
     const [alertMsg, setAlertMsg] = useState<string>("");
 
@@ -23,7 +20,6 @@ function App() {
         e.preventDefault();
         const sanitizedValue = e.target.value.replace(/\s/g, '');
         set(sanitizedValue);
-        console.log(email + " " + password)
     }
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>, setValue: React.Dispatch<React.SetStateAction<string>>) => {
         setValue(e.target.value.trim()); // Ensures trimming on blur for any trailing/leading spaces

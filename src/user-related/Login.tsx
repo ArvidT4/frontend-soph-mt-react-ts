@@ -1,7 +1,6 @@
-import React, {useState, MouseEvent, SyntheticEvent, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from "../css-modules/UserLoginRegister.module.css"
 import axios, { AxiosResponse } from 'axios';
-import * as events from "events";
 import {IToken, IUser } from '../interfaces';
 import { useMyContext } from '../Contexts/TokenContext';
 import { useMyAlertContext } from '../Contexts/AlertContext';
@@ -38,7 +37,6 @@ function App() {
             if(resData.token=="no token"){
                 updateAlert(true);
                 setInputError(styles.inputError);
-                console.log("Fuking not" + resData.token);
                 setAlertText("Your password or email is incorrect")
             } else {
                 addToken(resData);

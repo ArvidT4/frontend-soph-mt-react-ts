@@ -63,9 +63,7 @@ const PropertyForm:React.FC<property>=({prop,propFunc})=>{
             const property:IProperty=assembleProp();
             propFunc(property,token.token).then(success=>{
                 if(success)navigate("/Properties")
-                else console.log("FOLFP")
             })
-            console.log(property)
         }
     }
 

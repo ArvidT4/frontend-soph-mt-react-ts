@@ -1,6 +1,5 @@
 import { IProperty } from "../../../../../interfaces"
 import styles from "../../../../../css-modules/RequestPage.module.css"
-import arrow from "../../../../../images/backArrow.png"
 import { useNavigate } from "react-router-dom"
 interface PropProps{
     property:IProperty

@@ -1,9 +1,6 @@
 import styles from "../../css-modules/Menu.module.css";
 import edit from "../../images/edit.svg.png";
 import React from "react";
-import {useMyPropertiesContext} from "../../Contexts/PropertyContext";
-import property from "../../Property-handling/Property";
-import {useMyContext} from "../../Contexts/TokenContext";
 import { IProperty } from "../../interfaces";
 import { useNavigate } from "react-router-dom";
 interface editButtonProps{
@@ -13,7 +10,6 @@ interface editButtonProps{
 const EditButton:React.FC<editButtonProps>=({prop})=> {
     const navigate = useNavigate();
     const editProperty=()=>{
-        console.log("Clicked",prop);
 
         navigate(`/editProperty/${prop.address}`)
     }

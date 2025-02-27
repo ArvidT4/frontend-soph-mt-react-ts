@@ -58,7 +58,7 @@ const MyRequestProvider:React.FC<{ children: ReactNode }>=({children})=>{
                 propAddress:propAddress,
             }
         })
-        console.log(response.data);
+
         const res:IResponse=response.data;
         if(res.res==='success'){
             setProperties(res.properties);
@@ -68,8 +68,7 @@ const MyRequestProvider:React.FC<{ children: ReactNode }>=({children})=>{
 
     }
     const updateArchive= async (request:IRequest,token:string,propAddress:string,reqId:string):Promise<boolean>=>{
-        console.log(request.id)
-        console.log(propAddress)
+
         const response:AxiosResponse= await axios.put("http://localhost:9898/updateGarbageRequestFromCustomer",{
                 comment:request.comment,
                 startingDate:request.startingDate,
@@ -86,10 +85,8 @@ const MyRequestProvider:React.FC<{ children: ReactNode }>=({children})=>{
                 }
             }
         )
-        console.log(response)
         const res:IResponse=response.data;
         if(res.res==='success'){
-            console.log(res.properties)
             setProperties(res.properties);
             return true;
         }
@@ -107,7 +104,6 @@ const MyRequestProvider:React.FC<{ children: ReactNode }>=({children})=>{
     }
     const {setUserPropertiesList}=useMyUPContext();
     const updateReqFromEmployee=async (request:IRequest,token:IToken,propAddress:string,email:string)=>{
-        console.log(request.finished)
         const response:AxiosResponse=await axios.put("http://localhost:9898/updateGarbageRequestFromEmployee",{
             id:request.id,
             comment:request.comment,
@@ -126,10 +122,8 @@ const MyRequestProvider:React.FC<{ children: ReactNode }>=({children})=>{
                 reqId:request.id
             }
         })
-        console.log(response)
         const res:IResponseUP=response.data;
         if(res.res=="success"){
-            console.log("heheh")
             setUserPropertiesList(res.userProperties)
         }
     }

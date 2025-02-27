@@ -61,6 +61,14 @@
 .blurSpaceHidden{
     @apply w-full h-full backdrop-blur-0 transition-all duration-300
 }
+
+.aHolder{
+    @apply w-full h-full
+}
+.divider{
+    @apply border col-span-1 w-0.5 h-full m-auto border-green-500
+}
+/*Customer classes*/
 .ulList{
     @apply p-3 opacity-100 transition-all duration-500  h-full grid grid-cols-7
 }
@@ -68,14 +76,17 @@
     @apply opacity-0 overflow-hidden transition-all duration-500 h-0 grid grid-cols-7
 }
 .liItem{
-     @apply border-b border-green-500 text-lg font-bold col-span-3 m-auto hover:text-gray-500 hover:border-blue-500  transition-all
- }
-.liItemRight{
-    @apply text-lg font-bold col-span-3 border-b border-green-500 m-auto hover:text-gray-500 hover:border-blue-500 transition-all
+    @apply border-b border-green-500 text-lg font-bold col-span-3 m-auto hover:text-gray-500 hover:border-blue-500  transition-all
 }
-.divider{
-    @apply border col-span-1 w-0.5 h-full m-auto border-green-500
+
+/*Employee classes*/
+.ulListEmp{
+    @apply p-3 opacity-100 transition-all duration-500  h-full grid grid-cols-8
 }
-.aHolder{
-    @apply w-full h-full
+.ulListHiddenEmp{
+    @apply opacity-0 overflow-hidden transition-all duration-500 h-0 grid grid-cols-8
 }
+.liItemEmp{
+    @apply border-b border-green-500 text-lg font-bold col-span-2 m-auto hover:text-gray-500 hover:border-blue-500  transition-all
+}
+

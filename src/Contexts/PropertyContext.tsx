@@ -2,12 +2,8 @@ import {ReactNode, createContext, useContext, useState, useEffect} from "react";
 import {IProperty, IResponse, IToken,IUserProperties} from "../interfaces";
 import axios, { AxiosResponse } from "axios";
 import {
-    getLocalStorage,
-    getPropertyArrayFromSessionStorage, getUserPropertyArrayFromSessionStorage,
-    removeLocalStorage,
-    setLocalStorage
+    getPropertyArrayFromSessionStorage,
 } from "./LocalStorage.";
-import {useMyContext} from "./TokenContext";
 import { useMyUPContext } from "./UserPropertiesContext";
 axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
@@ -47,9 +43,7 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
 
     const getProperty=(address:string):IProperty|undefined=>{
         if(properties){
-            console.log("test")
             const property:IProperty|undefined=properties.find(obj=>obj.address===address)
-            console.log(property)
             return property
         }else return undefined
     }
@@ -57,8 +51,6 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
     const getProperties= async(token:IToken)=>{
 
         try{
-            console.log("tefds" + token)
-                console.log("tefds")
 
             if(token.role=="employee")getPropertiesForEmployee(token);
             else if(token.role=="customer")getPropertiesForCustomer(token)
@@ -76,7 +68,6 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
             }
         })
         setProperties(response.data);
-        console.log(response.data)
     }
 
     const createProperty= async (property:IProperty,token:string): Promise<boolean>=>{
@@ -100,7 +91,6 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
                 setProperties(response.data)
                 return true;
             }
-            console.log(response, property)
             return false
         }
         catch(error){
@@ -116,7 +106,6 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
                 address:address,
             }
         })
-        console.log(response)
         if(response.status===200){
             setProperties(response.data)
             return true;
@@ -125,7 +114,6 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
     }
     const editProperty = async (property: IProperty, token: string): Promise<boolean> => {
         try {
-            console.log(property.id);
             const response: AxiosResponse = await axios.put(
                 `http://localhost:9898/updateProperty`,
                 {
@@ -153,7 +141,6 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
                 return true;  // Return true if successful
             }
 
-            console.log(response);
             return false;  // Return false if not successful
         } catch (error) {
             console.log("Server error: " + error);
@@ -162,7 +149,6 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
     };
     const addWorkerToProperty=async (token:string,workerMail:string,propId:string):Promise<IResponse>=>{
         try{
-            console.log(token)
             let response:AxiosResponse= await axios.put("http://localhost:9898/AddWorkerToWorkerEmail",{
 
                 token:token,
@@ -171,13 +157,9 @@ const MyPropertiesProvider: React.FC<{children:ReactNode}> = ({children})=>{
 
             })
             let res:IResponse=response.data;
-            console.log(res);
             if(res.res=="success"){
                 setProperties(res.properties);
             }
-
-            console.log(response);
-
             return res;
         }catch(err){
             console.log(err)

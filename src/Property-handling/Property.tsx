@@ -1,11 +1,7 @@
 import { IProperty, IRequest } from "../interfaces"
 import styles from "../css-modules/Property.module.css"
 import myImage from "../images/images.json"
-import edit from "../images/edit.svg.png"
-import deleteImg from "../images/trashCan.png"
 import {useEffect, useState } from "react";
-import DeleteButton from "../Components/Menu/DeleteButton";
-import EditButton from "../Components/Menu/EditButton"
 import MenuButton from "../Components/Menu/MenuButton"
 import Menu from "../Components/Menu/Menu"
 import RequestFeed from "../Components/Property-related/Requests/RequestFeed"
@@ -24,9 +20,6 @@ const Property =({property}:props)=>{
     const [requests,setRequests]=useState<IRequest[]>();
     const dropdown=():void=>{
         setDropdownShown(!dropdownShown)
-    }
-    const setMenuDropdown=():void=>{
-        setShow(!show);
     }
     useEffect(() => {
         if(property){

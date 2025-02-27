@@ -11,7 +11,6 @@ const EProperty:React.FC<PropProps>=({userProp})=>{
     const [render,setRender]=useState<boolean>(false)
     useEffect(() => {
         setRender(true)
-        console.log("hehe?")
     }, [userProp.propertyList]);
     return(<div className={styles.empPWrap}>
         {render &&

@@ -15,6 +15,7 @@ import ArchivePage from './Property-handling/Requests/ArchivePage';
 import RequestsPage from './Property-handling/Employee-related/RequestsPage';
 import ActivateEmployee from "./user-related/super/ActivateEmployee";
 import PathError from "./LinkError/PathError";
+import AcceptedRequests from "./Property-handling/Employee-related/AcceptedRequests";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                 <Route path={"/Properties/:propAddress/:reqId/ArchiveRequest"} element={<ArchivePage/>}/>
                 <Route path={"/:email/:propAddress/Requests"} element={<RequestsPage/>}/>
                 <Route path={"/adminActivateEmp"}  element={<ActivateEmployee/>}/>
+                <Route path={"/AcceptedRequests"}  element={<AcceptedRequests/>}/>
             </Routes>
       </Router>
       </div>

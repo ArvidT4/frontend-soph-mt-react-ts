@@ -1,6 +1,4 @@
-import menuButton from "../../images/pngegg.png"
 import css from "../../css-modules/Menu.module.css"
-import { useState } from "react"
 
 interface props{
     setShow:React.Dispatch<React.SetStateAction<any>>,

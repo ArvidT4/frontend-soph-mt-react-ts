@@ -12,7 +12,6 @@ const MyAlertProvider: React.FC<{children:ReactNode}> = ({children})=>{
     const DURATION:number = 5000;
     const updateAlert=(status:boolean):void=>{
         setAlert(status);
-        console.log(alert);
     }
     useEffect(() => {
 

@@ -1,5 +1,6 @@
 import {useMyContext} from "../../Contexts/TokenContext";
 import {useNavigate} from "react-router-dom";
+import styles from "../../css-modules/Navbar.module.css";
 
 const LogoutButton=()=>{
     const navigate=useNavigate();
@@ -9,7 +10,7 @@ const LogoutButton=()=>{
         navigate("/login");
     }
     return(
-        <div>
+        <div className={styles.aHolder}>
             <p onClick={removeToken}>Log out</p>
         </div>
     )

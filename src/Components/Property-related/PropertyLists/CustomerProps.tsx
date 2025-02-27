@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { useMyPropertiesContext } from '../../../Contexts/PropertyContext';
 import propPage from "../../../css-modules/PropertyPage.module.css"
 import {IProperty} from "../../../interfaces"
@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const CustomerProps=()=>{
 
     const navigate = useNavigate();
-    const {properties, getProperties} = useMyPropertiesContext();
+    const {properties} = useMyPropertiesContext();
 
 
     return (

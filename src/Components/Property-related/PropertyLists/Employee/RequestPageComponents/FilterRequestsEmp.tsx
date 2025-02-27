@@ -18,7 +18,6 @@ const FilterRequestsEmp:React.FC<FilterProps>=({requests,setRequests})=>{
     useEffect(() => {
 
         if(filterReqs){
-            console.log(filterReqs)
             if(filterState===UNFINISHED)setRequests(filterReqs.filter(req=>!req.finished&&!req.freeAgent))
             else if(filterState===FINISHED)setRequests(filterReqs.filter(req=>req.finished))
             else if(filterState===FREE_AGENT)setRequests(filterReqs.filter(req=>req.freeAgent))

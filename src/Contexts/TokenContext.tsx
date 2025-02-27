@@ -75,10 +75,7 @@ const MyTokenProvider: React.FC<{children:ReactNode}> = ({children})=>{
 
     }
     const addToken=(token:IToken)=>{
-
-
         setToken(token);
-        console.log(token);
     }
 
     const logout=async():Promise<boolean>=>{
@@ -86,7 +83,6 @@ const MyTokenProvider: React.FC<{children:ReactNode}> = ({children})=>{
         const reponse:AxiosResponse=await axios.delete("http://localhost:9898/logout", {headers:{
                 token:token.token
             }})
-        console.log(reponse)
         return true
     }
     const checkForEmail= async(email:string):Promise<boolean>=>{
@@ -103,7 +99,6 @@ const MyTokenProvider: React.FC<{children:ReactNode}> = ({children})=>{
 
         try{
             if(token){
-                console.log(email);
                 const response:AxiosResponse= await axios.post("http://localhost:9898/registerEmployee",
                     {},
                     {
@@ -112,7 +107,6 @@ const MyTokenProvider: React.FC<{children:ReactNode}> = ({children})=>{
                             token:token.token,
                         }
                     });
-                console.log(response)
                 return response.data;
             }
             return false;

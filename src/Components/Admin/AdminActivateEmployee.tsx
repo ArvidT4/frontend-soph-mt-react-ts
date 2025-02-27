@@ -1,7 +1,7 @@
 import styles from "../../css-modules/AdminActivate.module.css"
 import {useMyContext} from "../../Contexts/TokenContext";
 import {useMyHandleChangeContext} from "../../Contexts/HandleChangeContext";
-import {useReducer, useRef, useState} from "react";
+import {useReducer, useState} from "react";
 import Alert from "../../Alerts/Alert";
 import {alertReducer, ERROR, INITIAL_STATE, INPUT_ERROR, SUCCESS} from "../../reducer/alertReducer";
 import {useMyAlertContext} from "../../Contexts/AlertContext";
@@ -22,7 +22,6 @@ const AdminActivateEmployee=()=>{
             });
         }
         else{
-            console.log(state)
             dispatch({type:INPUT_ERROR})
             updateAlert(true);
         }

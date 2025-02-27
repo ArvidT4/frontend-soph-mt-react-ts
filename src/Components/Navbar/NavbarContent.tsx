@@ -2,36 +2,23 @@ import {useEffect, useState } from "react";
 import { useMyNavbarContext } from "../../Contexts/NavbarContext";
 import styles from "../../css-modules/Navbar.module.css"
 import { useMyContext } from "../../Contexts/TokenContext";
-import LogoutButton from "./LogoutButton";
+import CustomerNav from "./CustomerNav";
+import EmployeeNav from "./EmployeeNav";
 
 const NavbarContent:React.FC=()=>{
-    const {clicked,setClicked}=useMyNavbarContext();
+    const {clicked}=useMyNavbarContext();
     const {token} = useMyContext();
-    const [title,setTitle]=useState<string>();
+    const [customer,setCustomer]=useState<boolean>();
     const ROLES:string[]=["customer","employee"];
 
     useEffect(() => {
-        if(token&&token.role==ROLES[1])setTitle("Customers")
-        else setTitle("Properties")
+        if(token&&token.role===ROLES[1])setCustomer(false)
+        else setCustomer(true)
     }, [token]);
     return(
+
         <div  className={clicked?styles.contentWrap:styles.contentWrapHidden}>
-            <div className={clicked?styles.content:styles.contentHidden}>
-                <ul className={clicked?styles.ulList:styles.ulListHidden}>
-                    <li className={styles.liItem}>
-                        <div className={styles.aHolder}>
-                            <a href={"/Properties"}>{title}</a>
-                        </div>
-                    </li>
-                    <li className={styles.divider}></li>
-                    <li className={styles.liItemRight}>
-                        <div className={styles.aHolder}>
-                            <LogoutButton/>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div onClick={() => setClicked(!clicked)} className={clicked ? styles.blurSpace:styles.blurSpaceHidden}></div>
+            {customer?<CustomerNav/>:<EmployeeNav/>}
         </div>
     )
 }

@@ -27,6 +27,10 @@ export interface IUserProperties{
     userEmail:string,
     propertyList:IProperty[];
 }
+export interface IUserProperty{
+    userEmail:string,
+    property:IProperty;
+}
 export interface IRequest{
     id:string;
     comment:string;

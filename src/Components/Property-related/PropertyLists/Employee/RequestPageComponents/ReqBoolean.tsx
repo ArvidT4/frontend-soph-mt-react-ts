@@ -1,6 +1,4 @@
 import styles from "../../../../../css-modules/RequestPage.module.css"
-import x from "../../../../../images/x.png"
-import check from "../../../../../images/checkGreen.png"
 interface ReqProps{
     bool:boolean,
     title:string,

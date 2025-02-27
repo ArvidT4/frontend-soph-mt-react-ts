@@ -31,13 +31,11 @@ const RequestForm:React.FC<RequestProps>=({address})=>{
     const [alertMsg,setAlertMsg]=useState<string>("");
     const {alert,updateAlert} = useMyAlertContext();
     useEffect(() => {
-        console.log(address);
         if(address){
             setRender(true)
         }
     }, []);
     useEffect(() => {
-        console.log(freeAgent);
         requestVaildator(comment,startingDate,deadlineDate,workerEmail,freeAgent)
     }, [comment,startingDate,deadlineDate,workerEmail,freeAgent]);
     const {
@@ -64,7 +62,6 @@ const RequestForm:React.FC<RequestProps>=({address})=>{
                 freeAgent:freeAgent,
                 finished:false,
             };
-            console.log(request)
             addRequest(request,token.token,address,workerEmail).then(success=>{
                 if(success)navigate("/properties")
                 else {
@@ -74,7 +71,6 @@ const RequestForm:React.FC<RequestProps>=({address})=>{
             })
         }
         else {
-            console.log(token,address,commentReqError,startingError,craftsmanError)
             setAlertMsg("Demands not meet");
             updateAlert(true)
         }

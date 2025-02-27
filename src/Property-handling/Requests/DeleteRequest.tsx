@@ -6,7 +6,6 @@ import { useMyContext } from "../../Contexts/TokenContext";
 import { useMyAlertContext } from "../../Contexts/AlertContext";
 import styles from "../../css-modules/DeleteProperty.module.css"
 import { useEffect, useState } from "react";
-import { IRequest } from "../../interfaces";
 import { useMyPropertiesContext } from "../../Contexts/PropertyContext";
 
 

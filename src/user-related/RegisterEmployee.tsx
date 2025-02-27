@@ -18,7 +18,7 @@ const RegisterEmployee=()=>{
     const [emailFound,setEmailFound]=useState<boolean>(false);
     const {checkForEmail}=useMyContext()
 
-    const {alert,updateAlert} = useMyAlertContext();
+    const {updateAlert} = useMyAlertContext();
     const navigate = useNavigate();
 
 
@@ -32,11 +32,8 @@ const RegisterEmployee=()=>{
         set(e.target.value.trim())
     }
     const checkEmail=async ()=>{
-        console.log(email)
         if(await checkForEmail(email)){
             setEmailFound(true);
-
-            console.log("yippi");
         }
     }
     const register = async():Promise<void>=>{
@@ -49,7 +46,6 @@ const RegisterEmployee=()=>{
                 })
 
                 const resData= response.data;
-                console.log(resData)
                 if(!resData){
                     setInputError(styles.inputError)
                     updateAlert(true)

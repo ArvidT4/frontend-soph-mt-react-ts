@@ -1,6 +1,4 @@
 import {useEffect, useState } from "react"
-import { useMyHandleChangeContext } from "../../../Contexts/HandleChangeContext";
-import arrow from "../../../images/arrowDown.png"
 import styles from "../../../css-modules/CraftsmanDropdown.module.css"
 import DropDownContent from "./DropDownContent";
 interface CraftsmanProps{

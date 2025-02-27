@@ -1,14 +1,10 @@
 import styles from "../../css-modules/Menu.module.css";
 import deleteImg from "../../images/trashCan.png";
 import React from "react";
-import {useMyPropertiesContext} from "../../Contexts/PropertyContext";
-import property from "../../Property-handling/Property";
-import {useMyContext} from "../../Contexts/TokenContext";
 import { useNavigate } from "react-router-dom";
 
 interface props{
     address:string,
-    //dropFunc:()=>void
 
 }
 const DeleteButton:React.FC<props> =({address}:props)=> {

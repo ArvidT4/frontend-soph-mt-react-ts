@@ -1,9 +1,6 @@
-import { ChangeEvent, useState } from "react";
 import H1Banner from "../Components/H1Banner";
 import { IProperty } from "../interfaces";
 import { useMyPropertiesContext } from "../Contexts/PropertyContext";
-import { useMyContext } from "../Contexts/TokenContext";
-import {useMyAlertContext} from "../Contexts/AlertContext";
 import PropertyForm from "../Components/Property-related/PropertyForm";
 
 const AddProperty = () => {

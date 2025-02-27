@@ -1,4 +1,4 @@
-import {ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import H1Banner from "../Components/H1Banner";
 import styles from "../css-modules/AddCraftsman.module.css"
 import ErrorText from "../Components/ErrorText";
@@ -22,9 +22,7 @@ const AddCraftsman=()=>{
     const defaultHandleChange = () => {};
     const changeHandler = handleChange || defaultHandleChange;
     useEffect(() => {
-        console.log(response)
         if(response!="success") {
-            console.log(response)
             setErrorMsg(response);
             setEmailError(true);
         }
@@ -37,8 +35,7 @@ const AddCraftsman=()=>{
             if(email.length>0&&propId&&token){
                 const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
                 const isValidEmail = emailRegex.test(email);
-                console.log(isValidEmail);
-                if(!isValidEmail){
+                if(isValidEmail){
                     const res=await addWorkerToProperty(token.token,email,propId) as IResponse;
                     setResponse(res.res);
                 }

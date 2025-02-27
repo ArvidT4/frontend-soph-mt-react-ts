@@ -1,6 +1,5 @@
-import burger from "../../images/burgerMenu.png"
 import styles from "../../css-modules/Navbar.module.css"
-import React, {useEffect, useReducer, useRef, useState} from "react"
+import React, {useEffect, useReducer, useRef,} from "react"
 import { useMyNavbarContext } from "../../Contexts/NavbarContext"
 import {
     burgerReducer,
@@ -18,13 +17,10 @@ const NavbarButton=()=>{
     }
     const firstUpdate=useRef(true);
     useEffect(() => {
-        console.log("1")
         if(firstUpdate.current){
-            console.log("3")
             firstUpdate.current=false;
             return;
         }
-        console.log("2")
         if(clicked){
             dispatch({type:CLICKED})
             setTimeout(()=>{

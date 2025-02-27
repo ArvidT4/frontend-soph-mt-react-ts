@@ -1,5 +1,5 @@
 import {ReactNode, createContext, useContext, useEffect, useState } from "react";
-import {IProperty, IToken, IUserProperties } from "../interfaces";
+import {IProperty, IRequest, IToken, IUserProperties, IUserProperty} from "../interfaces";
 import { getUserPropertyArrayFromSessionStorage } from "./LocalStorage.";
 import axios, { AxiosResponse } from "axios";
 
@@ -8,6 +8,7 @@ interface UPContext{
     getPropertiesForEmployee:(token:IToken)=>void;
     getProperty:(propAddress:string,email:string)=>IProperty|undefined;
     setUserPropertiesList:React.Dispatch<React.SetStateAction<any>>
+    getUserPropFromReq:(req:IRequest)=>IUserProperty|undefined
 }
 const uPContext=createContext<UPContext|undefined>(undefined);
 
@@ -35,7 +36,6 @@ const MyUPProvider: React.FC<{children:ReactNode}> = ({children})=>{
             }
         })
         setUserPropertiesList(response.data);
-        console.log(response.data)
     }
     const getProperty=(address:string,email:string):IProperty|undefined=>{
         if(userPropertiesList){
@@ -46,9 +46,30 @@ const MyUPProvider: React.FC<{children:ReactNode}> = ({children})=>{
         }
         else return undefined
     }
+    const getUserPropFromReq=(req:IRequest):IUserProperty | undefined=>{
+
+        if (userPropertiesList) {
+            const userProp = userPropertiesList.find(uP =>
+                uP.propertyList.some(prop =>
+                    prop.workRequests.some(obj => obj.id === req.id) // Match by `id`
+                )
+            );
+
+            if (userProp) {
+                const prop:IProperty|undefined=userProp.propertyList.find(obj=>
+                    obj.workRequests.some(objReq=>objReq.id===req.id)
+                )
+                if(prop){
+                    const userProperty:IUserProperty={userEmail:userProp.userEmail,property:prop};
+                    return userProperty;
+                }
+            }
+        }
+        return undefined;
+    }
 
     return (
-        <uPContext.Provider value={{userPropertiesList,getPropertiesForEmployee,getProperty,setUserPropertiesList}}>
+        <uPContext.Provider value={{userPropertiesList,getPropertiesForEmployee,getProperty,setUserPropertiesList,getUserPropFromReq}}>
             {children}
         </uPContext.Provider>
     )

@@ -1,4 +1,4 @@
-import {ReactNode, createContext, useContext, useState, useEffect} from "react"
+import {ReactNode, createContext, useContext, useState} from "react"
 
 interface INavbarContext{
     setClicked:React.Dispatch<React.SetStateAction<any>>,
